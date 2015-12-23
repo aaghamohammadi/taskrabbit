@@ -35,10 +35,10 @@ class Availability(models.Model):
 class Date(models.Model):
     date = models.DateField(default='')
     time_choices = (
-        ('morning', '???'),
-        ('noon', '???'),
-        ('afternoon', '??? ?? ???'),
-        ('full time', '???? ???')
+        ('morning', 'صبح'),
+        ('noon', 'ظهر'),
+        ('afternoon', 'بعد از ظهر'),
+        ('full time', 'تمام وقت')
     )
     time = models.CharField(choices=time_choices, max_length=12)
 
