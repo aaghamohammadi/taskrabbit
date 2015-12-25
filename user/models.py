@@ -9,7 +9,7 @@ class Person(models.Model):
     # user name
     # password
     # Email
-    nationalID = models.CharField(parimay_key=True, null=False, max_length=10)
+    nationalID = models.CharField(primary_key=True, null=False, max_length=10)
     first_name = models.CharField(max_length=25)
     last_name = models.CharField(max_length=25)
     phone_number = models.CharField(max_length=12)
@@ -19,17 +19,6 @@ class Person(models.Model):
 
     def __str__(self):
         return self.user.username
-
-
-class Tasker(models.Model):
-    person = models.OneToOneField(Person)
-    availability = models.ForeignKey(Availability)
-    wage = models.IntegerField(default=0)
-    rate = models.IntegerField(default=0)
-
-
-class Availability(models.Model):
-    dates = models.ForeignKey(Date)
 
 
 class Date(models.Model):
@@ -42,16 +31,36 @@ class Date(models.Model):
     )
     time = models.CharField(choices=time_choices, max_length=12)
 
+    def __str__(self):
+        return self.date
 
-class IntegerRangeField(models.IntegerField):
-    def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
-        self.min_value, self.max_value = min_value, max_value
-        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
 
-    def formfield(self, **kwargs):
-        defaults = {'min_value': self.min_value, 'max_value': self.max_value}
-        defaults.update(kwargs)
-        return super(IntegerRangeField, self).formfield(**defaults)
+class Availability(models.Model):
+    dates = models.ForeignKey(Date)
+
+    def __str__(self):
+        return self.dates
+
+
+class Tasker(models.Model):
+    person = models.OneToOneField(Person)
+    availability = models.ForeignKey(Availability)
+    wage = models.IntegerField(default=0)
+    rate = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.user.username
+
+# class IntegerRangeField(models.IntegerField):
+#   def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
+#       self.min_value, self.max_value = min_value, max_value
+
+#        models.IntegerField.__init__(self, verbose_name, name, **kwargs)
+#    def formfield(self, **kwargs):
+#        defaults = {'min_value': self.min_value, 'max_value': self.max_value}
+#       defaults.update(kwargs)
+
+# return super(IntegerRangeField, self).formfield(**defaults)
 
 # class Rating(models.Model):
 #     tasker = models.ForeignKey(Tasker)
