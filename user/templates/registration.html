@@ -1,0 +1,8 @@
+<form method="post">
+    {% csrf_token %}
+    {% for field in customer_reg_form %}
+        <div>{{ field }}</div>
+        <div style="color:red">{{ field.errors }}</div>
+    {% endfor %}
+    <button name="member-reg-btn" type="submit">ثبت نام</button>
+</form>
