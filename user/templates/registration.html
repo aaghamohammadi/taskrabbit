@@ -33,8 +33,9 @@
                     {% csrf_token %}
                     <div class="card">
                         <div class="card-content">
-                            {% for feild in customer_reg_form %}
-                                <div dir="rtl">{{ feild }}</div>
+                            {% for field in customer_reg_form %}
+                                <div dir="rtl">{{ field }}</div>
+                                <div dir="rtl" class="error-msg">{{ field.errors }}</div>
                             {% endfor %}
                             <button name="member-reg-btn" type="submit"
                                     class="waves-effect waves-light btn full width">ثبت نام
@@ -44,6 +45,7 @@
 
 
                 </form>
+
 
             </div>
             <div class="col s12 m2">&nbsp;</div>

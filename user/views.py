@@ -24,7 +24,6 @@ def registration(request):
                 customer_reg.save()
                 return HttpResponseRedirect('/')
             else:
-                customer_reg_form = CustomerRegForm()
                 return render(request, 'registration.html', {'customer_reg_form': customer_reg_form})
     else:
         customer_reg_form = CustomerRegForm()

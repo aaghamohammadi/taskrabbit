@@ -21,7 +21,7 @@ class CustomerRegForm(forms.ModelForm):
 
     def clean_customer_password(self):
         if len(self.cleaned_data['customer_password']) < 6:
-            raise forms.ValidationError('کلمه عبور باید حداقل ۶ نویسه باشد.')
+            raise forms.ValidationError('طول کلمه عبور باید حداقل ۴ کاراکتر باشد.')
         return self.cleaned_data['customer_password']
 
 # class LoginForm(forms.ModelForm):
