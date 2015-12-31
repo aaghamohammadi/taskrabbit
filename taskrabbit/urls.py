@@ -21,6 +21,7 @@ from taskrabbit import settings
 
 urlpatterns = \
     [
+        url(r'^login/', 'user.views.login_user', name='login'),
         url(r'^registration/', 'user.views.registration', name='registration'),
         url(r'^$', 'user.views.index', name='index'),
         url(r'^admin/', include(admin.site.urls)),

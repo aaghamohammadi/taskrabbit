@@ -1,8 +1,9 @@
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from user.forms import CustomerRegForm
+from user.forms import CustomerRegForm, LoginForm
 
 
 def index(request):
@@ -28,3 +29,24 @@ def registration(request):
     else:
         customer_reg_form = CustomerRegForm()
         return render(request, 'registration.html', {'customer_reg_form': customer_reg_form})
+
+
+def login_user(request):
+    if request.method == "POST":
+        login_form = LoginForm(request.POST)
+
+        if login_form.is_valid():
+            email = login_form.cleaned_data['email']
+            password = login_form.cleaned_data['password']
+
+            user = authenticate(username=email, password=password)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect('/')
+            msg = "نام کاربری یا کلمه عبور نامعتبر است."
+            return render(request, 'login.html', {'login_form': login_form, 'msg': msg})
+        else:
+            return render(request, 'login.html', {'login_form': login_form})
+    else:
+        login_form = LoginForm()
+        return render(request, 'login.html', {'login_form': login_form})

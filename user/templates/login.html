@@ -1,15 +1,15 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
 {% block title %}
-    ثبت نام کاربر
+    ورود به حساب کاربری
 {% endblock %}
 {% block static_css %}
     <link href="{% static "css/user/user.css" %}" rel="stylesheet" media="screen,projection"/>
 {% endblock %}
 {% block navbar %}
     <ul class="right hide-on-med-and-down">
-        <li class="active"><a href="#" class="normal navbar item">ثبت نام</a></li>
-        <li><a href="{% url 'login' %}" class="normal navbar item">ورود</a></li>
+        <li><a href="{% url 'registration' %}" class="normal navbar item">ثبت نام</a></li>
+        <li class="active"><a href="#" class="normal navbar item">ورود</a></li>
         <li><a href="{% url 'index' %}" class="normal navbar item">صفحه ی اصلی</a></li>
 
     </ul>
@@ -17,8 +17,8 @@
 
     <ul id="nav-mobile" class="side-nav">
         <li><a href="{% url 'index' %}">صفحه ی اصلی</a></li>
-        <li><a href="{% url 'login' %}">ورود</a></li>
-        <li class="active"><a href="#">ثبت نام</a></li>
+        <li class="active"><a href="#">ورود</a></li>
+        <li><a href="{% url 'registration' %}">ثبت نام</a></li>
     </ul>
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
 {% endblock %}
@@ -33,12 +33,15 @@
                     {% csrf_token %}
                     <div class="card">
                         <div class="card-content">
-                            {% for field in customer_reg_form %}
+                            {% for field in login_form %}
                                 <p dir="rtl">{{ field }}</p>
                                 <div dir="rtl" class="error-msg">{{ field.errors }}</div>
                             {% endfor %}
+                            {% if msg %}
+                                <div dir="rtl" class="error-msg">{{ msg }}</div>
+                            {% endif %}
                             <button name="member-reg-btn" type="submit"
-                                    class="waves-effect waves-light btn full width">ثبت نام
+                                    class="waves-effect waves-light btn full width">ورود
                             </button>
                         </div>
                     </div>

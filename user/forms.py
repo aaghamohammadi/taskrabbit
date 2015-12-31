@@ -20,10 +20,13 @@ class CustomerRegForm(forms.ModelForm):
         return self.cleaned_data['customer_email']
 
     def clean_customer_password(self):
-        if len(self.cleaned_data['customer_password']) < 6:
+        if len(self.cleaned_data['customer_password']) < 4:
             raise forms.ValidationError('طول کلمه عبور باید حداقل ۴ کاراکتر باشد.')
         return self.cleaned_data['customer_password']
 
-# class LoginForm(forms.ModelForm):
-#     email = forms.EmailField(required=True, label='پست الکترونیک ')
-#     password = forms.CharField(required=True, label='رمز عبور', widget=forms.PasswordInput)
+
+class LoginForm(forms.Form):
+    email = forms.EmailField(required=True, label='پست الکترونیک', widget=forms.TextInput(
+        attrs={'placeholder': 'پست الکترونیک', 'class': 'required'}))
+    password = forms.CharField(required=True, label='رمز عبور', widget=forms.PasswordInput(
+        attrs={'placeholder': 'کلمه عبور', 'class': 'required'}))
