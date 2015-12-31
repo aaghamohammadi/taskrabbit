@@ -5,8 +5,9 @@
  *
  * Made By MaterializeCSS.com
  */
-@import url(fontiran.css);
 
+@import url(fontiran.css);
+@import url(icons.css);
 body {
     font-family: IRANSans, serif !important;
 }
