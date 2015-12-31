@@ -34,7 +34,11 @@
                     <div class="card">
                         <div class="card-content">
                             {% for field in customer_reg_form %}
-                                <p dir="rtl">{{ field }}</p>
+                                <div class="input-field" dir="rtl">
+                                    {{ field }}
+                                    <label>{{ field.label }}</label>
+                                </div>
+
                                 <div dir="rtl" class="error-msg">{{ field.errors }}</div>
                             {% endfor %}
                             <button name="member-reg-btn" type="submit"

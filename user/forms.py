@@ -5,9 +5,9 @@ from user.models import Customer
 
 class CustomerRegForm(forms.ModelForm):
     customer_email = forms.EmailField(required=True, label='پست الکترونیک', widget=forms.TextInput(
-        attrs={'placeholder': 'پست الکترونیک', 'class': 'required'}))
+        attrs={'class': 'required'}))
     customer_password = forms.CharField(required=True, label='کلمه عبور', widget=forms.PasswordInput(
-        attrs={'placeholder': 'کلمه عبور', 'class': 'required'}))
+        attrs={'class': 'required'}))
 
     class Meta:
         model = Customer
