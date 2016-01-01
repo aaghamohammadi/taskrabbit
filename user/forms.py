@@ -30,3 +30,20 @@ class LoginForm(forms.Form):
         attrs={'placeholder': 'پست الکترونیک', 'class': 'required'}))
     password = forms.CharField(required=True, label='رمز عبور', widget=forms.PasswordInput(
         attrs={'placeholder': 'کلمه عبور', 'class': 'required'}))
+
+
+class AdditionalInfo(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['first_name', 'last_name', 'national_id', 'home_number', 'mobile_number', 'birthday', 'gender',
+                  'city', 'district']
+        labels = {
+            'first_name': 'نام',
+            'last_name': 'نام خانوادگی',
+            'national_id': 'کد ملی',
+            'home_number': 'شماره تلفن ثابت',
+            'mobile_number': 'شماره تلفن همراه',
+            'birthday': 'تاریخ تولد',
+            'city': 'شهر',
+            'district': 'محله'
+        }

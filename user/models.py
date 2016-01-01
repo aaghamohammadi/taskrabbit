@@ -31,53 +31,48 @@ class Customer(models.Model):
     def __str__(self):
         return self.user.username
 
-# class Person(models.Model):
 
-# user = models.OneToOneField(User)
-#     # user name
-#     # password
-#     # Email
-#     nationalID = models.CharField(primary_key=True, null=False, max_length=10)
-#     first_name = models.CharField(max_length=25)
-#     last_name = models.CharField(max_length=25)
-#     phone_number = models.CharField(max_length=12)
-#     address = models.TextField(default='')
-#     # province = models.CharField(max_length=25, default='')
-#     city = models.CharField(max_length=25, default='')
-#
-#     def __str__(self):
-#         return self.user.username
+class Date(models.Model):
+    date = models.DateField()
+    time_choices = (
+        ('morning', 'صبح'),
+        ('noon', 'ظهر'),
+        ('afternoon', 'بعد از ظهر'),
+        ('full time', 'تمام وقت')
+    )
+    time = models.CharField(choices=time_choices, max_length=12)
+
+    class Meta:
+        verbose_name_plural = "روزها"
+        verbose_name = "روز"
+
+    def __str__(self):
+        return str(self.date)
 
 
-# class Date(models.Model):
-#     date = models.DateField(default='')
-#     time_choices = (
-#         ('morning', 'صبح'),
-#         ('noon', 'ظهر'),
-#         ('afternoon', 'بعد از ظهر'),
-#         ('full time', 'تمام وقت')
-#     )
-#     time = models.CharField(choices=time_choices, max_length=12)
-#
-#     def __str__(self):
-#         return self.date
-#
-#
-# class Availability(models.Model):
-#     dates = models.ForeignKey(Date)
-#
-#     def __str__(self):
-#         return self.dates
-#
-#
-# class Tasker(models.Model):
-#     person = models.OneToOneField(Person)
-#     availability = models.ForeignKey(Availability)
-#     wage = models.IntegerField(default=0)
-#     rate = models.IntegerField(default=0)
-#
-#     def __str__(self):
-#         return self.user.username
+class Availability(models.Model):
+    dates = models.ForeignKey(Date)
+
+    class Meta:
+        verbose_name_plural = "زمان های در دسترس"
+        verbose_name = "زمان در دسترس"
+
+    def __str__(self):
+        return str(self.dates)
+
+
+class Tasker(models.Model):
+    person = models.OneToOneField(Customer)
+    availability = models.ForeignKey(Availability)
+    wage = models.IntegerField(default=0)
+    rate = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name_plural = "خدمت گزاران"
+        verbose_name = "خدمت گزار"
+
+    def __str__(self):
+        return self.person.first_name + " " + self.person.last_name
 
 # class IntegerRangeField(models.IntegerField):
 #   def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
