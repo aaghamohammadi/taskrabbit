@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from user.forms import CustomerRegForm, LoginForm
+from user.forms import CustomerRegForm, LoginForm, AdditionalInfo
+from user.models import Customer
 
 
 def index(request):
@@ -50,3 +51,18 @@ def login_user(request):
     else:
         login_form = LoginForm()
         return render(request, 'login.html', {'login_form': login_form})
+
+
+def additional_info(request):
+    if request.method == "POST":
+        additional_info_form = AdditionalInfo(request.POST)
+        if additional_info_form.is_valid():
+            pass
+
+        else:
+            return render(request, 'additional-info.html', {'additional_info_form': additional_info_form})
+
+    else:
+        additional_info_form = AdditionalInfo()
+        return render(request, 'additional-info.html',
+                      {'additional_info_form': additional_info_form})
