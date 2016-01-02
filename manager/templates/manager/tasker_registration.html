@@ -23,13 +23,15 @@
                             {% for field in form %}
                                 {% if field|field_type == "RadioSelect" %}
                                     <div dir="rtl">
-                                        {% for radio in field.field.choices %}
-                                            {#                                        {{ field.field }}#}
 
-                                            <input name="gender" id="gender_{{ forloop.counter0 }}" type="radio"
-                                                   value="{{ field.field.choices.0.0 }}"/>
-                                            <label for="gender_{{ forloop.counter0 }}">{{ radio.1 }}</label>
-                                        {% endfor %}
+
+                                        <input name="gender" id="gender_0" type="radio"
+                                               value="M"/>
+                                        <label for="gender_0">مرد</label>
+                                        <input name="gender" id="gender_1" type="radio"
+                                               value="F"/>
+                                        <label for="gender_1">زن</label>
+
                                     </div>
                                 {% else %}
                                     <div dir="rtl">
