@@ -3,9 +3,11 @@ from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
-
 from manager.forms.edit_task_form import EditTaskForm
+
 from service.models import TaskModel
+from user.models import Tasker
+from user.models import Customer
 
 __author__ = 'garfild'
 
@@ -27,6 +29,19 @@ class ModelTaskList(ListView):
     def get_queryset(self):
         return TaskModel.objects.all()
 
+
+class TaskerVerification(ListView):
+    model = Customer
+    template_name = 'manager/verification.html'
+    context_object_name = 'Taskers'
+    def get_queryset(self):
+        return Customer.objects.all()
+
+class DeleteTasker(View):
+    def post(self, request, **kwargs):
+        tasker_id = kwargs.pop('tasker_id')
+        Customer.objects.get(id=tasker_id).delete()
+        return redirect(reverse('manager:verification_task'))
 
 class DeleteTask(View):
     def post(self, request, **kwargs):
