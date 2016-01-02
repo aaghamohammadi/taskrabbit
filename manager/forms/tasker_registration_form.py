@@ -2,7 +2,6 @@ from django import forms
 
 from user.models import Customer
 
-
 __author__ = 'garfild'
 
 GENDER_CHOICES = (
@@ -14,6 +13,7 @@ GENDER_CHOICES = (
 class TaskerRegistrationForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='پست الکترونیک', widget=forms.TextInput(
         attrs={'class': 'required'}))
+
     gender = forms.ChoiceField(required=False, label='جنسیت',
                                widget=forms.RadioSelect(attrs={'id': 'gender', 'type': 'radio'}),
                                choices=GENDER_CHOICES)

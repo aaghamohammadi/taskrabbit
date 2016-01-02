@@ -1,9 +1,14 @@
+from django.views.generic import FormView, View, TemplateView
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
+
 from django.shortcuts import render
 
-from user.forms import CustomerRegForm, LoginForm, AdditionalInfo
+from user.forms import AdditionalInfoForm
+from user.forms import CustomerRegForm, LoginForm
 
 
 def index(request):
@@ -52,21 +57,41 @@ def login_user(request):
         return render(request, 'login.html', {'login_form': login_form})
 
 
-def additional_info(request):
-    if request.method == "POST":
-        additional_info_form = AdditionalInfo(request.POST)
-        if additional_info_form.is_valid():
-            pass
-
-        else:
-            return render(request, 'additional-info.html', {'additional_info_form': additional_info_form})
-
-    else:
-        additional_info_form = AdditionalInfo()
-        return render(request, 'additional-info.html',
-                      {'additional_info_form': additional_info_form})
+# def additional_info(request):
+#     if request.method == "POST":
+#         additional_info_form = AdditionalInfo(request.POST)
+#         if additional_info_form.is_valid():
+#             pass
+#
+#         else:
+#             return render(request, 'additional-info.html', {'additional_info_form': additional_info_form})
+#
+#     else:
+#         additional_info_form = AdditionalInfo()
+#         return render(request, 'additional-info.html',
+#                       {'additional_info_form': additional_info_form})
 
 
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect('/')
+
+
+class AdditionalInfo(FormView):
+    template_name = 'additional-info.html'
+    form_class = AdditionalInfoForm
+
+    def form_valid(self, form):
+        customer = form.save(commit=False)
+        email = form.cleaned_data['email']
+        customer.user = User.objects.get(email=email)
+        customer.save()
+        return redirect(reverse('user:additional_info'))
+
+
+class ProfileCustomer(TemplateView):
+    template_name = 'profile-customer.html'
+
+    def get(self, request, *args, **kwargs):
+        # customer_id = kwargs.pop('customer_id')
+        return render(request, self.template_name, {})

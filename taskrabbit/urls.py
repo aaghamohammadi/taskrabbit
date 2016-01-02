@@ -22,11 +22,13 @@ from taskrabbit import settings
 
 urlpatterns = \
     [
-        url(r'^additional-info/', 'user.views.additional_info', name='additional_info'),
-        url(r'^login/', 'user.views.login_user', name='login'),
-        url(r'^registration/', 'user.views.registration', name='registration'),
-        url(r'^$', 'user.views.index', name='index'),
+        # url(r'^additional-info/', 'user.views.additional_info', name='additional_info'),
         url(r'^admin/', include(admin.site.urls)),
         url(r'^manager/', include('manager.urls', namespace='manager')),
-        url(r'^service/', include('service.urls', namespace='service'))
+        url(r'^service/', include('service.urls', namespace='service')),
+
+        url(r'^', include('user.urls', namespace='user')),
+
+        url(r'^manager/', include('manager.urls', namespace='manager'))
+
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
