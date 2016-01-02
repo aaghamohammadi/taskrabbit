@@ -64,6 +64,11 @@ input::-webkit-input-placeholder {
     line-height: 0.7em;
 }
 
+.dropdown-content li > a, .dropdown-content li > span {
+    font-size: .9rem;
+    text-align: center;
+}
+
 .navbar.item {
     color: #009688;
     font-weight: bold;
@@ -125,7 +130,6 @@ input::-webkit-input-placeholder {
 .card .card-content p {
     text-align: justify;
 }
-
 
 .icon-block {
     padding: 0 15px;

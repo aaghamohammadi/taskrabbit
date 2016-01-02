@@ -1,9 +1,17 @@
-(function ($) {
-    $(function () {
+$(document).ready(function () {
+    $('.button-collapse').sideNav();
+    $('.parallax').parallax();
 
-        $('.button-collapse').sideNav();
-        $('.parallax').parallax();
+    $('.dropdown-button').dropdown({
+        inDuration: 300,
+        outDuration: 225,
+        constrain_width: false,
+        hover: true,
+        gutter: -25,
+        belowOrigin: true,
+        alignment: 'left'
+    });
+});
 
-    }); // end of document ready
 
-})(jQuery); // end of jQuery name space
+

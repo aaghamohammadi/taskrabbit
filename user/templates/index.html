@@ -12,7 +12,14 @@
 {% block navbar %}
     <ul class="right hide-on-med-and-down">
         <li><a href="{% url 'registration' %}" class="normal navbar item">ثبت نام</a></li>
-        <li><a href="{% url 'login' %}" class="normal navbar item">ورود</a></li>
+        <li><a href="{% url 'login' %}" class="normal navbar dropdown-button item"
+               data-activates="menu-links-1">ورود</a>
+            <ul id="menu-links-1" class="dropdown-content">
+                <li><a href="{% url 'additional_info' %}">تکمیل اطلاعات</a></li>
+                <li><a href="#">حساب کارمندی</a></li>
+                <li><a href="#">حساب کاربری</a></li>
+            </ul>
+        </li>
         <li class="active"><a href="#" class="normal navbar item">صفحه اصلی</a></li>
 
     </ul>
