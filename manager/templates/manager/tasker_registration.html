@@ -21,13 +21,14 @@
                         <div class="card-content">
 
                             {% for field in form %}
-
                                 {% if field|field_type == "RadioSelect" %}
                                     <div dir="rtl">
                                         {% for radio in field.field.choices %}
+                                            {#                                        {{ field.field }}#}
 
-                                            <input name="group1" id="person_{{ forloop.counter0 }}" type="radio"/>
-                                            <label for="person_{{ forloop.counter0 }}">{{ radio.1 }}</label>
+                                            <input name="gender" id="gender_{{ forloop.counter0 }}" type="radio"
+                                                   value="{{ field.field.choices.0.0 }}"/>
+                                            <label for="gender_{{ forloop.counter0 }}">{{ radio.1 }}</label>
                                         {% endfor %}
                                     </div>
                                 {% else %}

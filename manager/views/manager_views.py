@@ -1,5 +1,7 @@
+from django.contrib.auth.models import User
+
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
@@ -59,19 +61,15 @@ class TaskerRegistration(FormView):
     form_class = TaskerRegistrationForm
 
     def form_valid(self, form):
-        pass
+        print('salam moji')
+        customer = form.save(commit=False)
+        email = form.cleaned_data['email']
+        print(email)
+        customer.user = User.objects.get(email=email)
+        customer.save()
+        return redirect(reverse('manager:tasker_registration'))
 
-
-# def tasker_registration(request):
-#     if request.method == "POST":
-#         additional_info_form = TaskerRegistrationForm(request.POST)
-#         if additional_info_form.is_valid():
-#             pass
-#
-#         else:
-#             return render(request, 'additional-info.html', {'additional_info_form': additional_info_form})
-#
-#     else:
-#         additional_info_form = TaskerRegistrationForm()
-#         return render(request, 'additional-info.html',
-#                       {'additional_info_form': additional_info_form})
+    def form_invalid(self, form):
+        print('nasama')
+        print(form.errors)
+        return redirect(reverse('manager:tasker_registration'))

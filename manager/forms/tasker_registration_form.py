@@ -12,13 +12,16 @@ GENDER_CHOICES = (
 
 
 class TaskerRegistrationForm(forms.ModelForm):
+    email = forms.EmailField(required=True, label='پست الکترونیک', widget=forms.TextInput(
+        attrs={'class': 'required'}))
     gender = forms.ChoiceField(required=True, label='جنسیت',
-                               widget=forms.RadioSelect(attrs={'id': 'person', 'type': 'radio'}),
+                               widget=forms.RadioSelect(attrs={'id': 'gender', 'type': 'radio'}),
                                choices=GENDER_CHOICES)
 
     class Meta:
         model = Customer
-        fields = ['first_name', 'last_name', 'national_id', 'home_number', 'mobile_number', 'birthday', 'gender',
+        fields = ['email', 'first_name', 'last_name', 'national_id', 'home_number', 'mobile_number', 'birthday',
+                  'gender',
                   'city',
                   'district']
         labels = {
