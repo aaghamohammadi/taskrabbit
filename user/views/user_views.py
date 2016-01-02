@@ -86,5 +86,3 @@ class AdditionalInfo(FormView):
         customer.user = User.objects.get(email=email)
         customer.save()
         return redirect(reverse('user:additional_info'))
-
-

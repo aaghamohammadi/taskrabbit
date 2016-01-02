@@ -10,15 +10,15 @@
 {% block navbar %}
     <ul class="right hide-on-med-and-down">
         <li class="active"><a href="#" class="normal navbar item">ثبت نام</a></li>
-        <li><a href="{% url 'login' %}" class="normal navbar item">ورود</a></li>
-        <li><a href="{% url 'index' %}" class="normal navbar item">صفحه ی اصلی</a></li>
+        <li><a href="{% url 'user:login' %}" class="normal navbar item">ورود</a></li>
+        <li><a href="{% url 'user:index' %}" class="normal navbar item">صفحه ی اصلی</a></li>
 
     </ul>
 
 
     <ul id="nav-mobile" class="side-nav">
-        <li><a href="{% url 'index' %}">صفحه ی اصلی</a></li>
-        <li><a href="{% url 'login' %}">ورود</a></li>
+        <li><a href="{% url 'user:index' %}">صفحه ی اصلی</a></li>
+        <li><a href="{% url 'user:login' %}">ورود</a></li>
         <li class="active"><a href="#">ثبت نام</a></li>
     </ul>
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
