@@ -40,7 +40,7 @@ class LoginForm(forms.Form):
 
 class AdditionalInfoForm(forms.ModelForm):
     gender = forms.ChoiceField(required=False, label='جنسیت',
-                               widget=forms.RadioSelect(attrs={'id': 'person', 'type': 'radio'}),
+                               widget=forms.RadioSelect(attrs={'id': 'gender', 'type': 'radio'}),
                                choices=GENDER_CHOICES)
 
     class Meta:

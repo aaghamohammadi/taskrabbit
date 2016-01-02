@@ -81,15 +81,10 @@ class AdditionalInfo(FormView):
     form_class = AdditionalInfoForm
 
     def form_valid(self, form):
-        print('salam moji')
         customer = form.save(commit=False)
         email = form.cleaned_data['email']
-        print(email)
         customer.user = User.objects.get(email=email)
         customer.save()
         return redirect(reverse('user:additional_info'))
 
-    def form_invalid(self, form):
-        print('nasama')
-        print(form.errors)
-        return redirect(reverse('user:additional_info'))
+
