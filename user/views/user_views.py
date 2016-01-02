@@ -1,14 +1,13 @@
-from django.views.generic import FormView, View, TemplateView
+from django.views.generic import FormView, TemplateView
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-
 from django.shortcuts import render
-from review.forms import CommentForm, RatingForm
 
-from user.forms import AdditionalInfoForm
+from review.forms import CommentForm, RatingForm
+from user.forms import AdditionalInfoForm, TaskerAvailabilityForm
 from user.forms import CustomerRegForm, LoginForm
 
 
@@ -88,6 +87,14 @@ class AdditionalInfo(FormView):
         customer.user = User.objects.get(email=email)
         customer.save()
         return redirect(reverse('user:additional_info'))
+
+
+class ProfileTakser(TemplateView):
+    template_name = 'profile-tasker.html'
+
+    def get(self, request, *args, **kwargs):
+        availability_form = TaskerAvailabilityForm()
+        return render(request, self.template_name, {'availability_form': availability_form})
 
 
 class ProfileCustomer(TemplateView):

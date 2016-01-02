@@ -23,7 +23,7 @@
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'user:additional_info' %}">تکمیل اطلاعات</a></li>
                     <li><a href="{% url 'user:profile_customer' user.id %}">حساب کاربری</a></li>
-                    <li><a href="#">حساب کارمندی</a></li>
+                    <li><a href="{% url 'user:profile_tasker' user.id %}">حساب کارمندی</a></li>
                     <li><a href="/logout/">خروج</a></li>
                 {% endif %}
 
