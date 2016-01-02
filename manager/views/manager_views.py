@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
+from django.views.generic.base import View
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 
@@ -25,3 +26,10 @@ class ModelTaskList(ListView):
 
     def get_queryset(self):
         return TaskModel.objects.all()
+
+
+class DeleteTask(View):
+    def post(self, request, **kwargs):
+        task_model_id = kwargs.pop('task_model_id')
+        TaskModel.objects.get(id=task_model_id).delete()
+        return redirect(reverse('manager:task_model_list'))
