@@ -11,6 +11,7 @@ $(document).ready(function () {
         belowOrigin: true,
         alignment: 'left'
     });
+    $('.modal-trigger').leanModal();
 });
 
 
