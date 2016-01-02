@@ -64,7 +64,7 @@ class Availability(models.Model):
 class Tasker(models.Model):
     person = models.OneToOneField(Customer)
     availability = models.ForeignKey(Availability)
-    wage = models.IntegerField(default=0)
+    # wage = models.IntegerField(default=0)
     rate = models.IntegerField(default=0)
 
     class Meta:

@@ -68,3 +68,4 @@ class AdditionalInfo(forms.ModelForm):
             'mobile_number': forms.TextInput(attrs={'placeholder': 'مثال: ۰۹۱۲۶۰۲۷۷۸۳'}),
             'birthday': forms.TextInput(attrs={'class': 'datepicker'})
         }
+

@@ -1,10 +1,9 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from user.forms import CustomerRegForm, LoginForm, AdditionalInfo
-from user.models import Customer
 
 
 def index(request):
@@ -66,3 +65,8 @@ def additional_info(request):
         additional_info_form = AdditionalInfo()
         return render(request, 'additional-info.html',
                       {'additional_info_form': additional_info_form})
+
+
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect('/')
