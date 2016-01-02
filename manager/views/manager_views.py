@@ -60,15 +60,10 @@ class TaskerRegistration(FormView):
     form_class = TaskerRegistrationForm
 
     def form_valid(self, form):
-        print('salam moji')
         customer = form.save(commit=False)
         email = form.cleaned_data['email']
-        print(email)
-        customer.user = User.objects.get(email=email)
+        user = User.objects.get(email=email)
+        customer.user = user
         customer.save()
         return redirect(reverse('manager:tasker_registration'))
 
-    def form_invalid(self, form):
-        print('nasama')
-        print(form.errors)
-        return redirect(reverse('manager:tasker_registration'))
