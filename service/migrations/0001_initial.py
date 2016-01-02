@@ -12,39 +12,46 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='Category',
+            fields=[
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('name', models.CharField(max_length=50)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Order',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('customer', models.ForeignKey(to='user.Customer')),
             ],
         ),
         migrations.CreateModel(
-            name='Task',
+            name='Skill',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
+                ('salary', models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
             name='TaskModel',
             fields=[
-                ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID', primary_key=True, serialize=False)),
                 ('name', models.CharField(max_length=50)),
-                ('category', models.CharField(max_length=50)),
             ],
         ),
         migrations.AddField(
-            model_name='task',
+            model_name='skill',
             name='task_model',
             field=models.ForeignKey(to='service.TaskModel'),
         ),
         migrations.AddField(
-            model_name='task',
+            model_name='skill',
             name='tasker',
-            field=models.ForeignKey(related_name='tasks', to='user.Tasker'),
+            field=models.ForeignKey(to='user.Tasker', related_name='tasks'),
         ),
         migrations.AddField(
             model_name='order',
-            name='task',
-            field=models.ForeignKey(to='service.Task'),
+            name='skill',
+            field=models.ForeignKey(to='service.Skill'),
         ),
     ]

@@ -1,4 +1,5 @@
-from manager.views.manager_views import EditTask, ModelTaskList, DeleteTask, TaskerVerification, DeleteTasker
+from manager.views.manager_views import EditTask, ModelTaskList, DeleteTask, TaskerVerification, DeleteTasker, \
+    TaskerRegistration
 
 __author__ = 'garfild'
 
@@ -10,5 +11,6 @@ urlpatterns = \
         url(r'model-task-list/$', ModelTaskList.as_view(), name='task_model_list'),
         url(r'delete-task-model/(?P<task_model_id>\d+)/$', DeleteTask.as_view(), name='delete_task_model'),
         url(r'verification/$', TaskerVerification.as_view(), name='verification_task'),
-        url(r'verification/(?P<tasker_id>\d+)/$', DeleteTasker.as_view(), name='delete_tasker'),
+        url(r'delete-tasker/(?P<tasker_id>\d+)/$', DeleteTasker.as_view(), name='delete_tasker'),
+        url(r'tasker-registration', TaskerRegistration.as_view(), name='tasker_registration')
     ]

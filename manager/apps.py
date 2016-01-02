@@ -1,5 +1,5 @@
-from django.apps import AppConfig
-
-
-class ManagerConfig(AppConfig):
-    name = 'manager'
+# from django.apps import AppConfig
+#
+#
+# class ManagerConfig(AppConfig):
+#     name = 'manager'

@@ -3,10 +3,10 @@ from django.db import models
 # Create your models here.
 
 
-class Task(models.Model):
+class Skill(models.Model):
     tasker = models.ForeignKey('user.Tasker', related_name='tasks')
     task_model = models.ForeignKey('TaskModel')
-
+    salary = models.IntegerField()
 
 class TaskModel(models.Model):
     name = models.CharField(max_length=50)
@@ -15,7 +15,7 @@ class TaskModel(models.Model):
 
 class Order(models.Model):
     customer = models.ForeignKey('user.Customer')
-    task = models.ForeignKey('Task')
+    skill = models.ForeignKey('Skill')
 
 
 class Category(models.Model):
