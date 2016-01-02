@@ -29,6 +29,5 @@ urlpatterns = \
 
         url(r'^', include('user.urls', namespace='user')),
 
-        url(r'^manager/', include('manager.urls', namespace='manager'))
 
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
