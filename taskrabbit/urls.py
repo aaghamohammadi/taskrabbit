@@ -26,5 +26,5 @@ urlpatterns = \
         url(r'^registration/', 'user.views.registration', name='registration'),
         url(r'^$', 'user.views.index', name='index'),
         url(r'^admin/', include(admin.site.urls)),
-
+        url(r'^manager/', include('manager.urls', namespace='manager'))
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
