@@ -67,14 +67,63 @@
                                 <td>۱۹،۲۰۰ تومان</td>
                                 <td>انجام‌شده</td>
 
-                                <td><h4><a href="#" class=" large teal-text lighten-4"><i class="icon-blog"></i></a>
-                                </h4></td>
+                                <td><h4><a href="#modal1" class="modal-trigger large teal-text lighten-4"><i
+                                        class="icon-blog"></i></a>
+                                </h4>
+
+                                </td>
                             </tr>
                             </tbody>
                         </table>
+                        <!-- Modal Structure -->
+                        <!-- Modal Structure -->
+                        <div id="modal1" class="modal bottom-sheet">
+                            <div class="modal-content">
+                                <div class="row">
+                                    <form class="col s10 row" method="POST" dir="rtl" style="margin: auto; float: none">
+                                        {% csrf_token %}
+                                        <div class="input-field  col s4" dir="rtl" style="float:none;">
+                                            {{ comment_form.title }}
+                                            {{ comment_form.title.label_tag }}
+                                            {{ comment_form.title.errors }}
 
+                                        </div>
+                                        <div class="input-field  col s9" style="float: none">
+                                            {{ comment_form.context }}
+                                            {{ comment_form.context.label_tag }}
+                                            {{ comment_form.context.errors }}
+
+                                        </div>
+                                        <div class="col s12">
+                                            <button class="btn waves-effect waves-light row" type="submit">ثبت نظر
+                                                <i class="icon-pencil"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <form class="col s10 row" method="POST" dir="rtl" style="margin: auto; float: none">
+                                        {% csrf_token %}
+                                        {% for field in rating_form %}
+                                            {#            <div class="col s12 m6"></div>#}
+                                            <p class="range-field col s12 m3" style="float: right">
+                                                {{ field.label_tag }}
+                                                {{ field }}
+                                            </p>
+
+                                        {% endfor %}
+                                        <div class="col s12">
+                                            <button class="btn waves-effect waves-light row" type="submit">درج رتبه
+                                                <i class="icon-clipboard"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
                     </li>
+
                     <li class="collection-item">
                         <table>
                             <tbody>
@@ -96,12 +145,55 @@
                                 <td>۶۵،۰۰۰ تومان</td>
                                 <td>انجام‌شده</td>
 
-                                <td><h4><a href="#" class=" large teal-text lighten-4"><i class="icon-blog"></i></a>
+                                <td><h4><a href="#modal2" class="modal-trigger large teal-text lighten-4"><i class="icon-blog"></i></a>
                                 </h4></td>
                             </tr>
                             </tbody>
                         </table>
+                        <div id="modal2" class="modal bottom-sheet">
+                            <div class="modal-content">
+                                <div class="row">
+                                    <form class="col s10 row" method="POST" dir="rtl" style="margin: auto; float: none">
+                                        {% csrf_token %}
+                                        <div class="input-field  col s4" dir="rtl" style="float:none;">
+                                            {{ comment_form.title }}
+                                            {{ comment_form.title.label_tag }}
+                                            {{ comment_form.title.errors }}
 
+                                        </div>
+                                        <div class="input-field  col s9" style="float: none">
+                                            {{ comment_form.context }}
+                                            {{ comment_form.context.label_tag }}
+                                            {{ comment_form.context.errors }}
+
+                                        </div>
+                                        <div class="col s12">
+                                            <button class="btn waves-effect waves-light row" type="submit">ثبت نظر
+                                                <i class="icon-pencil"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="row">
+                                    <form class="col s10 row" method="POST" dir="rtl" style="margin: auto; float: none">
+                                        {% csrf_token %}
+                                        {% for field in rating_form %}
+                                            {#            <div class="col s12 m6"></div>#}
+                                            <p class="range-field col s12 m3" style="float: right">
+                                                {{ field.label_tag }}
+                                                {{ field }}
+                                            </p>
+
+                                        {% endfor %}
+                                        <div class="col s12">
+                                            <button class="btn waves-effect waves-light row" type="submit">درج رتبه
+                                                <i class="icon-clipboard"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
 
                     </li>
                 </ul>
@@ -109,4 +201,5 @@
 
         </div>
     </div>
+
 {% endblock %}

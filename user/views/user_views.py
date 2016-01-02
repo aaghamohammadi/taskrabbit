@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 
 from django.shortcuts import render
+from review.forms import CommentForm, RatingForm
 
 from user.forms import AdditionalInfoForm
 from user.forms import CustomerRegForm, LoginForm
@@ -94,4 +95,7 @@ class ProfileCustomer(TemplateView):
 
     def get(self, request, *args, **kwargs):
         # customer_id = kwargs.pop('customer_id')
-        return render(request, self.template_name, {})
+        comment_form = CommentForm()
+        rating_form = RatingForm()
+        return render(request, self.template_name, {'comment_form': comment_form,
+                                                    'rating_form': rating_form})
