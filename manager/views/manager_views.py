@@ -11,7 +11,6 @@ from manager.forms.tasker_registration_form import TaskerRegistrationForm
 from service.models import TaskModel
 from user.models import Customer
 
-
 __author__ = 'garfild'
 
 

@@ -15,8 +15,8 @@ class TaskerRegistrationForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='پست الکترونیک', widget=forms.TextInput(
         attrs={'class': 'required'}))
     gender = forms.ChoiceField(required=True, label='جنسیت',
-                               widget=forms.RadioSelect(attrs={'id': 'gender', 'type': 'radio'}),
-                               choices=GENDER_CHOICES)
+                               widget=forms.RadioSelect(attrs={'id': 'gender', 'type': 'radio'}))
+
 
     class Meta:
         model = Customer
