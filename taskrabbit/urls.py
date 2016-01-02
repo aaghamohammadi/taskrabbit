@@ -19,13 +19,13 @@ from django.contrib import admin
 
 from taskrabbit import settings
 
-
 urlpatterns = \
     [
-        url(r'^additional-info/', 'user.views.additional_info', name='additional_info'),
-        url(r'^login/', 'user.views.login_user', name='login'),
-        url(r'^registration/', 'user.views.registration', name='registration'),
-        url(r'^$', 'user.views.index', name='index'),
+        # url(r'^additional-info/', 'user.views.additional_info', name='additional_info'),
+        url(r'^login/', 'user.views.user_views.login_user', name='login'),
+        url(r'^registration/', 'user.views.user_views.registration', name='registration'),
+        url(r'^$', 'user.views.user_views.index', name='index'),
+        url(r'^', include('user.urls', namespace='user')),
         url(r'^admin/', include(admin.site.urls)),
         url(r'^manager/', include('manager.urls', namespace='manager'))
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 from user.models import Customer
 
-
 GENDER_CHOICES = (
     ('M', 'مرد'),
     ('F', 'زن'),
@@ -39,7 +38,7 @@ class LoginForm(forms.Form):
         attrs={'placeholder': 'کلمه عبور', 'class': 'required'}))
 
 
-class AdditionalInfo(forms.ModelForm):
+class AdditionalInfoForm(forms.ModelForm):
     gender = forms.ChoiceField(required=False, label='جنسیت',
                                widget=forms.RadioSelect(attrs={'id': 'person', 'type': 'radio'}),
                                choices=GENDER_CHOICES)
@@ -68,4 +67,3 @@ class AdditionalInfo(forms.ModelForm):
             'mobile_number': forms.TextInput(attrs={'placeholder': 'مثال: ۰۹۱۲۶۰۲۷۷۸۳'}),
             'birthday': forms.TextInput(attrs={'class': 'datepicker'})
         }
-
