@@ -8,9 +8,12 @@ class Skill(models.Model):
     task_model = models.ForeignKey('TaskModel')
     salary = models.IntegerField()
 
+
 class TaskModel(models.Model):
     name = models.CharField(max_length=50)
     # category = models.ForeignKey('Category')
+    image = models.ImageField(upload_to='service_images/', null=True, blank=True)  # TODO class image bashe behtare
+    description = models.CharField(max_length=250)
 
 
 class Order(models.Model):

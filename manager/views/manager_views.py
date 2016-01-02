@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 
 from django.core.urlresolvers import reverse
+from django.http.response import HttpResponse
 from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
@@ -21,6 +22,10 @@ class EditTask(FormView):
     def form_valid(self, form):
         form.save()
         return redirect(reverse('manager:task_model_list'))
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return HttpResponse("ridi ")
 
 
 class ModelTaskList(ListView):
