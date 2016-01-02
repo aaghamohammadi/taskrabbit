@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect
 from django.views.generic.base import View
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
@@ -8,7 +8,6 @@ from manager.forms.edit_task_form import EditTaskForm
 from manager.forms.tasker_registration_form import TaskerRegistrationForm
 from service.models import TaskModel
 from user.models import Customer
-
 
 __author__ = 'garfild'
 

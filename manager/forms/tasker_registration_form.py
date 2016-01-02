@@ -12,7 +12,7 @@ GENDER_CHOICES = (
 
 
 class TaskerRegistrationForm(forms.ModelForm):
-    gender = forms.ChoiceField(required=True, label='جنسیت',
+    gender = forms.ChoiceField(required=False, label='جنسیت',
                                widget=forms.RadioSelect(attrs={'id': 'person', 'type': 'radio'}),
                                choices=GENDER_CHOICES)
 

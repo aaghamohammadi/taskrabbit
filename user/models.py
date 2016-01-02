@@ -20,7 +20,7 @@ class Customer(models.Model):
     home_number = models.CharField(max_length=12)
     mobile_number = models.CharField(max_length=12)
     birthday = models.DateField(blank=True, null=True)
-    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank="False")
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES, blank=True, null=True)
     city = models.CharField(max_length=25, default='تهران')
     district = models.CharField(max_length=25, default='تهران')
 
