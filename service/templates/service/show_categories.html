@@ -43,7 +43,7 @@
 
 
                 <div class="col s12 m4 ">
-                    <div class="card ">
+                    <div class="card " dir="rtl">
                         <div class="card-image">
                             <img src="{{ item.image.url }}">
                             <span class="card-title red-text">{{ item.name }}</span>
@@ -52,7 +52,7 @@
                             <p>{{ item.description }}</p>
                         </div>
                         <div class="card-action">
-                            <a href="{% url 'service:show_taskers' item.id %}">برو دو</a>
+                            <a href="{% url 'service:show_taskers' item.id %}">نمایش خدمت گزاران</a>
                         </div>
                     </div>
 
