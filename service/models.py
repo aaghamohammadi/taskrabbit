@@ -15,6 +15,9 @@ class TaskModel(models.Model):
     image = models.ImageField(upload_to='service_images/', null=True, blank=True)  # TODO class image bashe behtare
     description = models.CharField(max_length=250)
 
+    def __str__(self):
+        return self.name
+
 
 class Order(models.Model):
     customer = models.ForeignKey('user.Customer')

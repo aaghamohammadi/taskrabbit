@@ -22,7 +22,6 @@ from taskrabbit import settings
 
 urlpatterns = \
     [
-        # url(r'^additional-info/', 'user.views.additional_info', name='additional_info'),
         url(r'^admin/', include(admin.site.urls)),
         url(r'^manager/', include('manager.urls', namespace='manager')),
         url(r'^service/', include('service.urls', namespace='service')),
