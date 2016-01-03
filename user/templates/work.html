@@ -1,5 +1,8 @@
 {% extends 'layout.html' %}
-{% load static %}
+{% load staticfiles %}
+{% block title %}
+    همکاری
+{% endblock %}
 {% block navbar %}
     <ul class="right hide-on-med-and-down">
         <li><a href="{% url 'user:registration' %}" class="normal navbar item">ثبت نام</a></li>
@@ -15,14 +18,13 @@
                     <li><a href="{% url 'user:additional_info' %}">تکمیل اطلاعات</a></li>
                     <li><a href="{% url 'user:profile_customer' user.id %}">حساب کاربری</a></li>
                     <li><a href="{% url 'user:profile_tasker' user.id %}">حساب کارمندی</a></li>
-                    <li><a href="{% url 'user:work' user.id %}">همکاری</a></li>
+                    <li class="active"><a href="{% url 'user:work' user.id %}">همکاری</a></li>
                     <li><a href="/logout/">خروج</a></li>
                 {% endif %}
 
 
             </ul>
         </li>
-        <li class="active"><a class="normal navbar item" href="{% url 'service:show_categories' %}">خدمات</a></li>
         <li><a href="{% url 'user:index' %}" class="normal navbar item">صفحه اصلی</a></li>
 
     </ul>
@@ -37,31 +39,21 @@
 
 {% endblock %}
 {% block container %}
-    <div class="container">
+    <div class="container" dir="rtl">
         <div class="row">
-            {% for item in task_models %}
-
-
-                <div class="col s12 m4 ">
-                    <div class="card ">
-                        <div class="card-image">
-                            <img src="{{ item.image.url }}">
-                            <span class="card-title red-text">{{ item.name }}</span>
-                        </div>
-                        <div class="card-content">
-                            <p>{{ item.description }}</p>
-                        </div>
-                        <div class="card-action">
-                            <a href="{% url 'service:show_taskers' item.id %}">برو دو</a>
-                        </div>
-                    </div>
-
-                </div>
-
-
-
-            {% endfor %}
+            <div class="col s4">
+                &nbsp;
+            </div>
+            <div class="col s8">
+                <p>
+                    در صورت تمایل به همکاری به عنوان خدمت گزار لطفا با شماره تلفن ۴۴۶۳۲۹۴۵ تماس حاصل فرمایید.
+                    در صورت احراز صلاحیت، قراردادی به سامانه برون سپاری محلی کارها بسته شده و می توانید به عنوان خدمت
+                    گزار به کاربران خدمت ارائه دهید.
+                </p>
+            </div>
         </div>
-    </div>
-{% endblock %}
 
+    </div>
+
+
+{% endblock %}

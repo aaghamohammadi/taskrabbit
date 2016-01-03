@@ -1,4 +1,4 @@
-from user.views.user_views import AdditionalInfo, ProfileCustomer, ProfileTakser
+from user.views.user_views import AdditionalInfo, ProfileCustomer, ProfileTakser, Work
 from django.conf.urls import url
 
 urlpatterns = \
@@ -7,6 +7,7 @@ urlpatterns = \
         url(r'^registration/', 'user.views.user_views.registration', name='registration'),
         url(r'^$', 'user.views.user_views.index', name='index'),
         url(r'^logout/$', 'user.views.user_views.logout_user'),
+        url(r'^work/(?P<customer_id>\d+)/$', Work.as_view(), name='work'),
         url(r'^profile-tasker/(?P<customer_id>\d+)/$', ProfileTakser.as_view(), name='profile_tasker'),
         url(r'^profile-customer/(?P<customer_id>\d+)/$', ProfileCustomer.as_view(), name='profile_customer'),
         url(r'^additional-info', AdditionalInfo.as_view(), name='additional_info')

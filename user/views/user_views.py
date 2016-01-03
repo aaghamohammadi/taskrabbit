@@ -97,6 +97,13 @@ class ProfileTakser(TemplateView):
         return render(request, self.template_name, {'availability_form': availability_form})
 
 
+class Work(TemplateView):
+    template_name = 'work.html'
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {})
+
+
 class ProfileCustomer(TemplateView):
     template_name = 'profile-customer.html'
 
