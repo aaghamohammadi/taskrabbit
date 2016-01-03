@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% load staticfiles %}
+{% load apptags %}
+{% block title %}
+    حساب کارمندی
+{% endblock %}
+{% block container %}
+    <div class="container">
+        <div class="px-40 vertical spacer"></div>
+        <div class="row">
+            <div class="col s12 m2">&nbsp;</div>
+            <div class="col s12 m8">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="card">
+                        <div class="card-content">
+
+                            {% for field in availability_form %}
+
+                                {% if field|field_type == "RadioSelect" %}
+                                    <div dir="rtl">
+                                        {% for radio in field.field.choices %}
+
+                                            <input name="group1" id="person_{{ forloop.counter0 }}" type="radio"/>
+                                            <label for="person_{{ forloop.counter0 }}">{{ radio.1 }}</label>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    <div dir="rtl">
+                                        <label>{{ field.label }}:</label>
+                                        {{ field }}
+                                    </div>
+                                    <div dir="rtl" class="error-msg">{{ field.errors }}</div>
+                                {% endif %}
+
+
+
+                            {% endfor %}
+                            <button name="member-reg-btn" type="submit"
+                                    class="waves-effect waves-light btn full width">ثبت نام
+                            </button>
+                        </div>
+                    </div>
+
+
+                </form>
+
+
+            </div>
+            <div class="col s12 m2">&nbsp;</div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        $('.datepicker').pickadate({
+            selectMonths: true, // Creates a dropdown to control month
+            selectYears: 15 // Creates a dropdown of 15 years to control year
+        });
+    </script>
+{% endblock %}

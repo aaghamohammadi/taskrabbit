@@ -1,11 +1,18 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from user.models import Customer
+from user.models import Customer, Date
 
 GENDER_CHOICES = (
     ('M', 'مرد'),
     ('F', 'زن'),
+)
+
+TIME_CHOICES = (
+    ('morning', 'صبح'),
+    ('noon', 'ظهر'),
+    ('afternoon', 'بعد از ظهر'),
+    ('full time', 'تمام وقت')
 )
 
 
@@ -66,4 +73,22 @@ class AdditionalInfoForm(forms.ModelForm):
             'home_number': forms.TextInput(attrs={'type': 'number', 'placeholder': 'مثال: ۰۲۱۴۴۶۶۲۳۶۸'}),
             'mobile_number': forms.TextInput(attrs={'placeholder': 'مثال: ۰۹۱۲۶۰۲۷۷۸۳'}),
             'birthday': forms.TextInput(attrs={'class': 'datepicker'})
+        }
+
+
+class TaskerAvailabilityForm(forms.ModelForm):
+    time = forms.ChoiceField(required=False, label='زمان',
+                             widget=forms.RadioSelect(attrs={'id': 'x_time', 'type': 'radio'}),
+                             choices=TIME_CHOICES)
+
+    class Meta:
+        model = Date
+        fields = ['date', 'time']
+        labels = {
+            'date': 'روز',
+            'time': 'زمان'
+        }
+
+        widgets = {
+            'date': forms.TextInput(attrs={'class': 'datepicker'}),
         }
