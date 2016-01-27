@@ -1,6 +1,6 @@
 from django import forms
 
-from user.models import Customer
+# from user.models import Customer
 
 __author__ = 'garfild'
 
@@ -19,7 +19,7 @@ class TaskerRegistrationForm(forms.ModelForm):
                                choices=GENDER_CHOICES)
 
     class Meta:
-        model = Customer
+        # model = Customer
         fields = ['first_name', 'last_name', 'national_id', 'home_number', 'mobile_number', 'birthday',
                   'gender',
                   'city',

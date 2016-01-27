@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
 
-from user.models import Customer, Date
+# from user.models import Customer, Date
+from user.models import Member
 
 GENDER_CHOICES = (
     ('M', 'مرد'),
@@ -17,30 +18,42 @@ TIME_CHOICES = (
 
 
 class CustomerRegForm(forms.ModelForm):
-    customer_email = forms.EmailField(required=True, label='پست الکترونیک', widget=forms.TextInput(
+    member_email = forms.EmailField(required=True, label='پست الکترونیک', widget=forms.TextInput(
         attrs={'class': 'required'}))
-    customer_password = forms.CharField(required=True, label='کلمه عبور', widget=forms.PasswordInput(
+    member_password = forms.CharField(required=True, label='کلمه عبور', widget=forms.PasswordInput(
         attrs={'class': 'required'}))
+    gender = forms.ChoiceField(required=False, label='جنسیت',
+                               widget=forms.RadioSelect(attrs={'id': 'gender', 'type': 'radio'}),
+                               choices=GENDER_CHOICES)
 
     class Meta:
-        model = Customer
-        fields = ['customer_email', 'customer_password']
+        model = Member
+        fields = ['full_name', 'member_email', 'member_password', 'mobile_number', 'gender', 'city']
+        labels = {
+            'full_name': 'نام کامل',
+            'mobile_number': 'شماره تلفن همراه',
+            'city': 'شهر'
+        }
+        widgets = {
+            'full_name': forms.TextInput(),
+            'mobile_number': forms.TextInput(attrs={'type': 'number'})
+        }
 
-    def clean_customer_email(self):
-        if (User.objects.filter(email=self.cleaned_data['customer_email'])).count() > 0:
+    def clean_member_email(self):
+        if (User.objects.filter(email=self.cleaned_data['member_email'])).count() > 0:
             raise forms.ValidationError('پست الکترونیک انتخاب شده تکراری است.')
 
-        return self.cleaned_data['customer_email']
+        return self.cleaned_data['member_email']
 
-    def clean_customer_password(self):
-        if len(self.cleaned_data['customer_password']) < 4:
+    def clean_member_password(self):
+        if len(self.cleaned_data['member_password']) < 4:
             raise forms.ValidationError('طول کلمه عبور باید حداقل ۴ کاراکتر باشد.')
-        return self.cleaned_data['customer_password']
+        return self.cleaned_data['member_password']
 
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(required=True, label='پست الکترونیک', widget=forms.TextInput(
-        attrs={'placeholder': 'پست الکترونیک', 'class': 'required'}))
+    username = forms.CharField(required=True, label='نام کامل', widget=forms.TextInput(
+        attrs={'placeholder': 'نام کامل', 'class': 'required'}))
     password = forms.CharField(required=True, label='رمز عبور', widget=forms.PasswordInput(
         attrs={'placeholder': 'کلمه عبور', 'class': 'required'}))
 
@@ -51,7 +64,7 @@ class AdditionalInfoForm(forms.ModelForm):
                                choices=GENDER_CHOICES)
 
     class Meta:
-        model = Customer
+        # model = Customer
         fields = ['first_name', 'last_name', 'national_id', 'home_number', 'mobile_number', 'birthday', 'gender',
                   'city',
                   'district']
@@ -82,7 +95,7 @@ class TaskerAvailabilityForm(forms.ModelForm):
                              choices=TIME_CHOICES)
 
     class Meta:
-        model = Date
+        # model = Date
         fields = ['date', 'time']
         labels = {
             'date': 'روز',

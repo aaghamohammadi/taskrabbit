@@ -23,8 +23,8 @@ from taskrabbit import settings
 urlpatterns = \
     [
         url(r'^admin/', include(admin.site.urls)),
-        url(r'^manager/', include('manager.urls', namespace='manager')),
-        url(r'^service/', include('service.urls', namespace='service')),
+        # url(r'^manager/', include('manager.urls', namespace='manager')),
+        # url(r'^service/', include('service.urls', namespace='service')),
 
         url(r'^', include('user.urls', namespace='user')),
 

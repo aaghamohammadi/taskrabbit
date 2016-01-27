@@ -9,6 +9,8 @@ __pycache__/
 local_settings.py
 db.sqlite3
 media
+taskrabbit/settings.py
+db_string_value_script.py
 
 
 ### PyCharm ###

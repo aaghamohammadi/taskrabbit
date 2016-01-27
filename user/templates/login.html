@@ -34,6 +34,7 @@
                     <div class="card">
                         <div class="card-content">
                             {% for field in login_form %}
+                                {{ field.tag }}
                                 <p dir="rtl">{{ field }}</p>
                                 <div dir="rtl" class="error-msg">{{ field.errors }}</div>
                             {% endfor %}

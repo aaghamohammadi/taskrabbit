@@ -21,9 +21,10 @@ def registration(request):
             customer_reg_form = CustomerRegForm(request.POST)
 
             if customer_reg_form.is_valid():
-                email = customer_reg_form.cleaned_data['customer_email']
-                password = customer_reg_form.cleaned_data['customer_password']
-                user = User.objects.create_user(email=email, password=password, username=email)
+                email = customer_reg_form.cleaned_data['member_email']
+                password = customer_reg_form.cleaned_data['member_password']
+                username = customer_reg_form.cleaned_data['full_name']
+                user = User.objects.create_user(email=email, password=password, username=username)
                 user.save()
                 customer_reg = customer_reg_form.save(commit=False)
                 customer_reg.user = user
@@ -41,10 +42,10 @@ def login_user(request):
         login_form = LoginForm(request.POST)
 
         if login_form.is_valid():
-            email = login_form.cleaned_data['email']
+            username = login_form.cleaned_data['username']
             password = login_form.cleaned_data['password']
 
-            user = authenticate(username=email, password=password)
+            user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
                 return HttpResponseRedirect('/')
