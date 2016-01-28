@@ -1,4 +1,5 @@
 # Create your models here.
+import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -18,6 +19,11 @@ class Member(models.Model):
     mobile_number = models.CharField(max_length=12)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, default='M', null=True)
     city = models.CharField(max_length=25)
+    address = models.CharField(max_length=150)
+
+    # confirmation
+    activation_key = models.CharField(max_length=40, blank=True)
+    key_expires = models.DateTimeField(default=datetime.date.today)
 
     class Meta:
         verbose_name_plural = 'کاربران نوع مشتری'

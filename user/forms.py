@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 # from user.models import Customer, Date
@@ -28,11 +29,12 @@ class CustomerRegForm(forms.ModelForm):
 
     class Meta:
         model = Member
-        fields = ['full_name', 'member_email', 'member_password', 'mobile_number', 'gender', 'city']
+        fields = ['full_name', 'member_email', 'member_password', 'mobile_number', 'gender', 'city', 'address']
         labels = {
             'full_name': 'نام کامل',
             'mobile_number': 'شماره تلفن همراه',
-            'city': 'شهر'
+            'city': 'شهر',
+            'address': 'آدرس'
         }
         widgets = {
             'full_name': forms.TextInput(),
