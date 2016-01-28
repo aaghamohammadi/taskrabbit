@@ -3,19 +3,16 @@ import datetime
 import random
 
 from django.core.mail import send_mail
-from django.views.generic import FormView, TemplateView
-from django.core.urlresolvers import reverse
-from django.shortcuts import redirect, get_object_or_404, render_to_response
+from django.views.generic import TemplateView
+from django.shortcuts import get_object_or_404, render_to_response
 from django.contrib.auth import authenticate, login, logout
-
 from django.contrib.auth.models import User
-
 from django.http import HttpResponseRedirect
 
 from django.shortcuts import render
-from review.forms import CommentForm, RatingForm
 
-from user.forms import AdditionalInfoForm, TaskerAvailabilityForm
+from review.forms import CommentForm, RatingForm
+from user.forms import TaskerAvailabilityForm, EditCustomerProfileForm
 from user.forms import CustomerRegForm, LoginForm
 from user.models import Member
 
@@ -150,18 +147,6 @@ def profile_user(request, customer_id):
                       {'member': member, 'comment_form': comment_form, 'rating_form': rating_form})
 
 
-class AdditionalInfo(FormView):
-    template_name = 'additional-info.html'
-    form_class = AdditionalInfoForm
-
-    def form_valid(self, form):
-        customer = form.save(commit=False)
-        email = form.cleaned_data['email']
-        customer.user = User.objects.get(email=email)
-        customer.save()
-        return redirect(reverse('user:additional_info'))
-
-
 class ProfileTakser(TemplateView):
     template_name = 'profile-tasker.html'
 
@@ -176,6 +161,7 @@ class Work(TemplateView):
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, {})
 
+
 # class ProfileCustomer(FormView):
 #     template_name = 'profile-customer.html'
 #     model = Member
@@ -186,3 +172,14 @@ class Work(TemplateView):
 #         rating_form = RatingForm()
 #         return render(request, self.template_name, {'comment_form': comment_form,
 #                                                     'rating_form': rating_form})
+def edit_customer_profile(request):
+    template_name = 'edit-customer-profile.html'
+    member = Member.objects.get(user=request.user)
+    if request.method == "POST":
+        form = EditCustomerProfileForm(instance=member, data=request.POST)
+        if form.is_valid():
+            member = form.save()
+            return HttpResponseRedirect('/')
+    else:
+        form = EditCustomerProfileForm(instance=member)
+    return render(request, template_name, {'form': form})
