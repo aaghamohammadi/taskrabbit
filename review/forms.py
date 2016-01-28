@@ -3,8 +3,6 @@ from review.models import Comment, Rating
 
 
 class CommentForm(forms.ModelForm):
-    # goh = forms.IntegerField()
-
     class Meta:
         model = Comment
         exclude = ['customer']
@@ -19,9 +17,5 @@ class RatingForm(forms.ModelForm):
         model = Rating
         exclude = ['customer', 'tasker']
         widgets = {
-            'kindness': forms.TextInput(attrs={'type': 'range', 'min': '0', 'max': '5'}),
-            'price': forms.TextInput(attrs={'type': 'range', 'min': '0', 'max': '5'}),
-            'performance': forms.TextInput(attrs={'type': 'range', 'min': '0', 'max': '5'}),
-            'speed': forms.TextInput(attrs={'type': 'range', 'min': '0', 'max': '5'}),
-
+            'rating': forms.TextInput(attrs={'type': 'range', 'min': '0', 'max': '10'}),
         }

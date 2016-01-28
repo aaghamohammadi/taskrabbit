@@ -7,12 +7,14 @@ from django.views.generic import FormView, TemplateView
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, get_object_or_404, render_to_response
 from django.contrib.auth import authenticate, login, logout
+
 from django.contrib.auth.models import User
+
 from django.http import HttpResponseRedirect
 
 from django.shortcuts import render
-
 from review.forms import CommentForm, RatingForm
+
 from user.forms import AdditionalInfoForm, TaskerAvailabilityForm
 from user.forms import CustomerRegForm, LoginForm
 from user.models import Member
@@ -134,6 +136,20 @@ def register_confirm(request, activation_key):
     return render_to_response('confirm.html')
 
 
+def profile_user(request, customer_id):
+    template_name = 'profile-customer.html'
+    member = Member.objects.get(user=request.user)
+    if request.method == "POST":
+        comment_form = CommentForm(request.POST)
+        rating_form = RatingForm(request.POST)
+
+    else:
+        comment_form = CommentForm()
+        rating_form = RatingForm()
+        return render(request, template_name,
+                      {'member': member, 'comment_form': comment_form, 'rating_form': rating_form})
+
+
 class AdditionalInfo(FormView):
     template_name = 'additional-info.html'
     form_class = AdditionalInfoForm
@@ -160,13 +176,13 @@ class Work(TemplateView):
     def get(self, request, *args, **kwargs):
         return render(request, self.template_name, {})
 
-
-class ProfileCustomer(TemplateView):
-    template_name = 'profile-customer.html'
-
-    def get(self, request, *args, **kwargs):
-        # customer_id = kwargs.pop('customer_id')
-        comment_form = CommentForm()
-        rating_form = RatingForm()
-        return render(request, self.template_name, {'comment_form': comment_form,
-                                                    'rating_form': rating_form})
+# class ProfileCustomer(FormView):
+#     template_name = 'profile-customer.html'
+#     model = Member
+#
+#     def get(self, request, *args, **kwargs):
+#         # customer_id = kwargs.pop('customer_id')
+#         comment_form = CommentForm()
+#         rating_form = RatingForm()
+#         return render(request, self.template_name, {'comment_form': comment_form,
+#                                                     'rating_form': rating_form})

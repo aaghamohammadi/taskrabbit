@@ -3,6 +3,7 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Sum
 
 GENDER_CHOICES = (
     ('M', 'مرد'),
@@ -24,6 +25,9 @@ class Member(models.Model):
     # confirmation
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(default=datetime.date.today)
+
+    def get_score(self):
+        return self.rating_set.aggregate(Sum('rating'))
 
     class Meta:
         verbose_name_plural = 'کاربران نوع مشتری'

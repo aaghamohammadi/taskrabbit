@@ -41,38 +41,36 @@
 {% endblock %}
 
 {% block container %}
+
     <div class="container">
         <div class="row">
 
             <div class="col s4">
                 <ul class="collection" dir="rtl">
+
                     <li class="collection-item">
-                        <strong>نام:</strong>
-                        علیرضا
-                    </li>
-                    <li class="collection-item">
-                        <strong>نام خانوادگی:</strong>
-                        آقامحمدی
-                    </li>
-                    <li class="collection-item">
-                        <strong>تلفن ثابت:</strong>
-                        ۰۲۱۴۴۶۶۲۳۶۸
+                        <strong>نام کامل:</strong>
+                        {{ member.user.username }}
                     </li>
                     <li class="collection-item">
                         <strong>تلفن همراه:</strong>
-                        ۰۹۱۲۶۰۲۷۷۸۳
+                        {{ member.mobile_number }}
                     </li>
                     <li class="collection-item">
                         <strong>جنسیت:</strong>
-                        مرد
+                        {% if member.gender == 'M' %}
+                            مرد
+                        {% else %}
+                            زن
+                        {% endif %}
                     </li>
                     <li class="collection-item">
                         <strong>شهر:</strong>
-                        تهران
+                        {{ member.city }}
                     </li>
                     <li class="collection-item">
                         <strong>آدرس:</strong>
-                        شهرک اکباتان، فاز ۳، بلوک حافظ، ورودی ۳، طبقه ۸، پلاک ۸۹
+                        {{ member.address }}
                     </li>
 
                 </ul>
@@ -111,7 +109,7 @@
                         </table>
                         <!-- Modal Structure -->
                         <!-- Modal Structure -->
-                        <div id="modal1" class="modal bottom-sheet">
+                        <div id="modal1" class="modal">
                             <div class="modal-content">
                                 <div class="row">
                                     <form class="col s10 row" method="POST" dir="rtl" style="margin: auto; float: none">
@@ -129,7 +127,8 @@
 
                                         </div>
                                         <div class="col s12">
-                                            <button class="btn waves-effect waves-light row" type="submit">ثبت نظر
+                                            <button name="member-comment-btn" class="btn waves-effect waves-light row"
+                                                    type="submit">ثبت نظر
                                                 <i class="icon-pencil"></i>
                                             </button>
                                         </div>
@@ -147,81 +146,8 @@
 
                                         {% endfor %}
                                         <div class="col s12">
-                                            <button class="btn waves-effect waves-light row" type="submit">درج رتبه
-                                                <i class="icon-clipboard"></i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-
-                    </li>
-
-                    <li class="collection-item">
-                        <table>
-                            <tbody>
-                            <thead>
-                            <tr>
-                                <th>خدمت گزار</th>
-                                <th>کد سفارش</th>
-                                <th>تاریخ</th>
-                                <th>قیمت تمام شده</th>
-                                <th>وضعیت</th>
-                                <th>ثبت نظر</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>محسنی کبیر</td>
-                                <td>۱۳۹۳۴۳۴۵</td>
-                                <td>۱۳۹۳/۷/۱۹</td>
-                                <td>۶۵،۰۰۰ تومان</td>
-                                <td>انجام‌شده</td>
-
-                                <td><h4><a href="#modal2" class="modal-trigger large teal-text lighten-4"><i
-                                        class="icon-blog"></i></a>
-                                </h4></td>
-                            </tr>
-                            </tbody>
-                        </table>
-                        <div id="modal2" class="modal bottom-sheet">
-                            <div class="modal-content">
-                                <div class="row">
-                                    <form class="col s10 row" method="POST" dir="rtl" style="margin: auto; float: none">
-                                        {% csrf_token %}
-                                        <div class="input-field  col s4" dir="rtl" style="float:none;">
-                                            {{ comment_form.title }}
-                                            {{ comment_form.title.label_tag }}
-                                            {{ comment_form.title.errors }}
-
-                                        </div>
-                                        <div class="input-field  col s9" style="float: none">
-                                            {{ comment_form.context }}
-                                            {{ comment_form.context.label_tag }}
-                                            {{ comment_form.context.errors }}
-
-                                        </div>
-                                        <div class="col s12">
-                                            <button class="btn waves-effect waves-light row" type="submit">ثبت نظر
-                                                <i class="icon-pencil"></i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="row">
-                                    <form class="col s10 row" method="POST" dir="rtl" style="margin: auto; float: none">
-                                        {% csrf_token %}
-                                        {% for field in rating_form %}
-                                            {#            <div class="col s12 m6"></div>#}
-                                            <p class="range-field col s12 m3" style="float: right">
-                                                {{ field.label_tag }}
-                                                {{ field }}
-                                            </p>
-
-                                        {% endfor %}
-                                        <div class="col s12">
-                                            <button class="btn waves-effect waves-light row" type="submit">درج رتبه
+                                            <button name="member-rating-btn" class="btn waves-effect waves-light row"
+                                                    type="submit">درج رتبه
                                                 <i class="icon-clipboard"></i>
                                             </button>
                                         </div>
