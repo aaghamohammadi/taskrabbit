@@ -12,7 +12,7 @@ GENDER_CHOICES = (
 
 
 class Member(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name='member')
     # username
     # password
     # email
