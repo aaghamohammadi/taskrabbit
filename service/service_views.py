@@ -21,3 +21,9 @@
 #     def get_queryset(self):
 #         print(self.kwargs.get('task_model_id'))
 #         return Skill.objects.filter(task_model_id=self.kwargs.get('task_model_id'))
+from django.views.generic.edit import FormView
+
+
+class CreateTask(FormView):
+    template_engine = ''
+    form_class = ''
