@@ -1,5 +1,5 @@
 import user
-from user.views.user_views import AdditionalInfo, ProfileTakser, Work
+from user.views.user_views import ProfileTakser, Work
 from django.conf.urls import url
 
 urlpatterns = \
@@ -12,5 +12,5 @@ urlpatterns = \
         url(r'^work/(?P<customer_id>\d+)/$', Work.as_view(), name='work'),
         url(r'^profile-tasker/(?P<customer_id>\d+)/$', ProfileTakser.as_view(), name='profile_tasker'),
         url(r'^profile-customer/(?P<customer_id>\d+)/$', user.views.user_views.profile_user, name='profile_customer'),
-        url(r'^additional-info', AdditionalInfo.as_view(), name='additional_info')
+        url(r'^edit-customer-profile', user.views.user_views.edit_customer_profile, name='edit-customer-profile')
     ]

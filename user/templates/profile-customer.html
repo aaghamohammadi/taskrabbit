@@ -16,7 +16,7 @@
             {% endif %}</a>
             <ul id="menu-links-1" class="dropdown-content">
                 {% if user.is_authenticated %}
-                    <li><a href="{% url 'user:additional_info' %}">تکمیل اطلاعات</a></li>
+                    <li><a href="{% url 'user:edit-customer-profile' %}">ویرایش حساب کاربری</a></li>
                     <li class="active"><a href="{% url 'user:profile_customer' user.id %}">حساب کاربری</a></li>
                     <li><a href="{% url 'user:profile_tasker' user.id %}">حساب کارمندی</a></li>
                     <li><a href="{% url 'user:work' user.id %}">همکاری</a></li>
