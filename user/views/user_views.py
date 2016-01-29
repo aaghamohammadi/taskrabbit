@@ -42,15 +42,6 @@ def registration(request):
             customer_reg_form = CustomerRegForm(request.POST)
 
             if customer_reg_form.is_valid():
-                # email = customer_reg_form.cleaned_data['member_email']
-                # password = customer_reg_form.cleaned_data['member_password']
-                # username = customer_reg_form.cleaned_data['full_name']
-                # user = User.objects.create_user(email=email, password=password, username=username)
-                # user.save()
-                # customer_reg = customer_reg_form.save(commit=False)
-                # customer_reg.user = user
-                # customer_reg.save()
-                # return HttpResponseRedirect('/')
                 username = customer_reg_form.cleaned_data['full_name']
                 email = customer_reg_form.cleaned_data['member_email']
                 password = customer_reg_form.cleaned_data['member_password']
@@ -193,6 +184,7 @@ def edit_customer_profile(request):
     if request.method == "POST":
         form = EditCustomerProfileForm(instance=member, data=request.POST)
         if form.is_valid():
+            image = form.cleaned_data['image']
             form.save()
             return HttpResponseRedirect('/')
     else:

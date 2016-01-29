@@ -63,7 +63,7 @@ class LoginForm(forms.Form):
 class EditCustomerProfileForm(forms.ModelForm):
     class Meta:
         model = Member
-        exclude = ['user', 'email', 'full_name', 'skills', 'activation_key', 'key_expires', 'gender']
+        fields = ['mobile_number', 'city', 'address', 'image']
 
         labels = {
             'mobile_number': 'شماره تلفن همراه',
@@ -71,6 +71,8 @@ class EditCustomerProfileForm(forms.ModelForm):
             'address': 'آدرس',
             'image': 'عکس'
         }
+
+
 
 
 class TaskerAvailabilityForm(forms.ModelForm):

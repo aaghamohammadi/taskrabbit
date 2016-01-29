@@ -6,9 +6,11 @@
 
 {% block navbar %}
     <ul class="right hide-on-med-and-down">
-        <li><a href="{% url 'user:registration' %}" class="normal navbar item">ثبت نام</a></li>
-        <li><a href="{% url 'user:login' %}" class="normal navbar dropdown-button item"
-               data-activates="menu-links-1">
+        {% if not user.is_authenticated %}
+            <li><a href="{% url 'user:registration' %}" class="normal navbar item">ثبت نام</a></li>
+        {% endif %}
+        <li class="active"><a href="{% url 'user:login' %}" class="normal navbar dropdown-button item"
+                              data-activates="menu-links-1">
             {% if user.is_authenticated %}
                 حساب کاربری
             {% else %}
@@ -19,7 +21,6 @@
                     <li><a href="{% url 'user:edit-customer-profile' %}">ویرایش حساب کاربری</a></li>
                     <li class="active"><a href="{% url 'user:profile_customer' user.id %}">حساب کاربری</a></li>
                     <li><a href="{% url 'user:profile_tasker' user.id %}">حساب کارمندی</a></li>
-                    <li><a href="{% url 'user:work' user.id %}">همکاری</a></li>
                     <li><a href="/logout/">خروج</a></li>
                 {% endif %}
 

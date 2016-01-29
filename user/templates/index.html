@@ -11,7 +11,10 @@
 
 {% block navbar %}
     <ul class="right hide-on-med-and-down">
-        <li><a href="{% url 'user:registration' %}" class="normal navbar item">ثبت نام</a></li>
+        {% if not user.is_authenticated %}
+            <li><a href="{% url 'user:registration' %}" class="normal navbar item">ثبت نام</a></li>
+        {% endif %}
+
         <li><a href="{% url 'user:login' %}" class="normal navbar dropdown-button item"
                data-activates="menu-links-1">
             {% if user.is_authenticated %}
@@ -24,7 +27,6 @@
                     <li><a href="{% url 'user:edit-customer-profile' %}">ویرایش حساب کاربری</a></li>
                     <li><a href="{% url 'user:profile_customer' user.id %}">حساب کاربری</a></li>
                     <li><a href="{% url 'user:profile_tasker' user.id %}">حساب کارمندی</a></li>
-                    <li><a href="{% url 'user:work' user.id %}">همکاری</a></li>
                     <li><a href="/logout/">خروج</a></li>
                 {% endif %}
 
@@ -56,12 +58,6 @@
                 <div class="row center">
                     <h5 class="header col s12 light">خدمت گزار تنها چند کلیک با خانه شما فاصله دارد</h5>
                 </div>
-                <div class="row center">
-                    {{ request.online_now }}
-                    {{ visits }}
-                    {#                    <a href="{% url 'service:show_categories' %}" id="download-button"#}
-                    {#                       class="btn-large waves-effect waves-light teal lighten-1">شروع کنید</a>#}
-                </div>
                 <br><br>
 
             </div>
@@ -76,11 +72,11 @@
             <!--   Icon Section   -->
             <div class="row">
                 <div class="col s12 m4">
-                    <div class="icon-block">
-                        <h2 class="center brown-text"><i class="icon-power"></i></h2>
-                        <h5 class="center">شرح نیازمندی</h5>
-
-                        <p class="light" dir="rtl">این به ما کمک می کند تا بهترین خدمت گزار را برای شما تعیین کنیم.</p>
+                    <div class="card-panel teal" dir="rtl">
+                         <span class="white-text">
+                            <strong>تعداد بازدید کنندگان:</strong>{{ visits }}<br/>
+                             <strong>تعداد کاربران بر خط:</strong>{{ request.online_now }}
+                         </span>
                     </div>
                 </div>
 
@@ -94,13 +90,15 @@
                 </div>
 
                 <div class="col s12 m4">
-                    <div class="icon-block">
-                        <h2 class="center brown-text"><i class="icon-checkmark"></i></h2>
-                        <h5 class="center">بهتر زندگی کنید</h5>
-
-                        <p class="light" dir="rtl">کیفیت ارائه خدمت تضمین شده است.</p>
+                    <div class="search">
+                        <div class="search-wrapper card">
+                            <input id="search">
+                            <i class="icon-search"></i>
+                        </div>
                     </div>
+
                 </div>
+
             </div>
 
         </div>
