@@ -47,3 +47,12 @@ class ShowSkillsView(ListView):
     def get_queryset(self, *args, **kwargs):
         print(self.request.tasker)
         return Skill.objects.all()
+
+
+class ShowSkillView(ListView):
+    model = Skill
+    template_name = 'service/show_skill.html'
+    context_object_name = 'skill'
+
+    def get_queryset(self, *args, **kwargs):
+        pass

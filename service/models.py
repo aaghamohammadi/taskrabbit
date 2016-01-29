@@ -8,6 +8,7 @@ class Skill(models.Model):
     description = models.CharField(max_length=500)
     category = models.ForeignKey('Category', related_name='skills')
     image = models.ImageField(upload_to='skill_images')
+    tasker = models.ForeignKey('user.Member', related_name='skills')
 
     # todo bayad image dashte bashe
     def __str__(self):
