@@ -2,6 +2,8 @@ from django.core.urlresolvers import resolve
 from django.http.response import HttpResponseForbidden
 from django.core.cache import cache
 
+from user.models import Member
+
 
 class OnlineNowMiddleware(object):
     @staticmethod
@@ -37,6 +39,8 @@ class CommonMiddleWare:
         # todo age chizi base hame bayad anjam beshe inja bayad ejra she vali baide
         resolved = resolve(request.path)
         names = resolved.namespaces + [resolved.url_name]
+        if not resolved.url_name:
+            return
         for name in names:
             camel = ''.join(x.capitalize() for x in name.split('_'))
             if hasattr(cls, camel):
@@ -55,6 +59,12 @@ class Root:
         def process_view(request, view_func, view_args, view_kwargs):
             if not request.user.is_authenticated():
                 return HttpResponseForbidden()
+            tasker_id = view_kwargs.pop('tasker_id', '')
+            if tasker_id:
+                tasker = Member.objects.get(id=tasker_id)
+            else:
+                tasker = request.user.member
+            request.tasker = tasker
 
         class EditSkill:
             @staticmethod

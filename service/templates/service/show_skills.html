@@ -1,0 +1,30 @@
+{% extends 'logged_in_user.html' %}
+{% load static %}
+{% block container %}
+    <div class="container">
+        <div class="row">
+            {% for skill in skills %}
+
+
+                <div class="col s12 m4 ">
+                    <div class="card small" dir="rtl">
+                        <div class="card-image">
+                            <img src="{{ skill.image.url }}">
+                            <span class="card-title red-text">{{ skill.title }}</span>
+                        </div>
+                        <div class="card-content">
+                            <p>{{ skill.description }}</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="">نمایش مهارت</a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -23,8 +23,10 @@
 #         return Skill.objects.filter(task_model_id=self.kwargs.get('task_model_id'))
 from django.http.response import HttpResponse
 from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
 
 from service.forms.skill_form import SkillForm
+from service.models import Skill
 
 
 class EditSkillView(FormView):
@@ -35,3 +37,13 @@ class EditSkillView(FormView):
         skill = form.save()
         self.request.user.member.skills.add(skill)
         return HttpResponse('مهارت شما با موفقیت ثبت شد.')
+
+
+class ShowSkillsView(ListView):
+    model = Skill
+    template_name = 'service/show_skills.html'
+    context_object_name = 'skills'
+
+    def get_queryset(self, *args, **kwargs):
+        print(self.request.tasker)
+        return Skill.objects.all()
