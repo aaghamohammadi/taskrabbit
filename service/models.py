@@ -9,15 +9,19 @@ class Skill(models.Model):
     category = models.ForeignKey('Category', related_name='skills')
     image = models.ImageField(upload_to='skill_images')
     tasker = models.ForeignKey('user.Member', related_name='skills')
-
-    # todo bayad image dashte bashe
+    #todo bayad duration dashte bashe
+    #todo bayad price dashte bashe 
     def __str__(self):
         return str(self.title) + " " + str(self.category)
 
 
+class OrderBasket(models.Model):
+    customer = models.ForeignKey('user.Member', related_name='baskets')
+
+
 class Order(models.Model):
-    customer = models.ForeignKey('user.Member')
-    skill = models.ForeignKey('Skill')
+    basket = models.ForeignKey('user.Member', related_name='orders')
+    skill = models.ForeignKey('Skill', related_name='orders')
 
 
 class Category(models.Model):

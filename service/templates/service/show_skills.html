@@ -16,7 +16,7 @@
                             <p>{{ skill.description }}</p>
                         </div>
                         <div class="card-action">
-                            <a href="">نمایش مهارت</a>
+                            <a href="{% url 'service:show_skill' skill.tasker.id skill.id %}">نمایش مهارت</a>
                         </div>
                     </div>
 

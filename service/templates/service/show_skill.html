@@ -1,11 +1,11 @@
 {% extends 'logged_in_user.html' %}
 {% load static %}
 {% block container %}
-    <div class="container">
+    <div class="container" dir="rtl">
         <div class="row">
 
-            <div class="col s12 m4 ">
-                <div class="card small" dir="rtl">
+            <div class="col s12 m8 offset-m2">
+                <div class="card large" dir="rtl">
                     <div class="card-image">
                         <img src="{{ skill.image.url }}">
                         <span class="card-title red-text">{{ skill.title }}</span>
@@ -13,14 +13,31 @@
                     <div class="card-content">
                         <p>{{ skill.description }}</p>
                     </div>
-                    <div class="card-action">
-                        <a href="{% url 'service:show_s' %}">نمایش مهارت</a>
-                    </div>
+
                 </div>
 
             </div>
 
 
         </div>
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                حمید رضا:
+                <ul class="collection" dir="rtl">
+
+{#                    <li class="collection-item avatar" dir="rtl">#}
+{#                        <i class="material-icons circle">حمیدرضا</i>#}
+                        {#                        <span class="title">با سلام به دوستان</span>#}
+{#                        <br/>#}
+                        با سلام خدمت دوستان
+                        </p>
+                        {#                        <a href="#!" class="secondary-content"><i class="material-icons">نمره</i></a>#}
+                    </li>
+
+                </ul>
+            </div>
+        </div>
     </div>
+
+
 {% endblock %}
