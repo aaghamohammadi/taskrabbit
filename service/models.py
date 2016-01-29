@@ -9,8 +9,8 @@ class Skill(models.Model):
     category = models.ForeignKey('Category', related_name='skills')
     image = models.ImageField(upload_to='skill_images')
     tasker = models.ForeignKey('user.Member', related_name='skills')
-    #todo bayad duration dashte bashe
-    #todo bayad price dashte bashe 
+    # todo bayad duration dashte bashe
+    # todo bayad price dashte bashe
     def __str__(self):
         return str(self.title) + " " + str(self.category)
 
