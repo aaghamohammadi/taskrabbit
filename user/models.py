@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models import Sum
 
+from review.models import CommentSet
+from service.models import OrderBasket, Order
+
 GENDER_CHOICES = (
     ('M', 'مرد'),
     ('F', 'زن'),
@@ -26,6 +29,8 @@ class Member(models.Model):
     # confirmation
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(default=datetime.date.today)
+    comment_set = models.ForeignKey('review.CommentSet', related_name='member', unique=True)
+    credit = models.IntegerField(default=0)
 
     def get_score(self):
         return self.rating_set.aggregate(Sum('rating'))
@@ -37,7 +42,21 @@ class Member(models.Model):
     def __str__(self):
         return self.user.username
 
-        # birthday = models.jDateField()
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.comment_set = CommentSet.objects.create()
+        super(Member, self).save()
+        if not self.baskets.first():
+            OrderBasket.objects.create(customer=self)
+
+    #     birthday = models.jDateField()
+
+    def purchase(self):
+        OrderBasket.objects.create(customer=self)
+
+    def add_to_basket(self, skill):
+        current_basket = self.baskets.all().last()
+        Order.objects.create(basket=current_basket, skill=skill)
 
 # class Person(models.Model):
 #     first_name = models.CharField(max_length=25)

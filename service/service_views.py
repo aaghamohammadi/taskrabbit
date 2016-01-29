@@ -21,8 +21,9 @@
 #     def get_queryset(self):
 #         print(self.kwargs.get('task_model_id'))
 #         return Skill.objects.filter(task_model_id=self.kwargs.get('task_model_id'))
+from django.core.urlresolvers import reverse
 from django.http.response import HttpResponse, Http404
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 
@@ -35,9 +36,11 @@ class EditSkillView(FormView):
     form_class = SkillForm
 
     def form_valid(self, form):
-        skill = form.save()
-        self.request.user.member.skills.add(skill)
-        return HttpResponse('مهارت شما با موفقیت ثبت شد.')
+        tasker = self.request.user.member
+        skill = form.save(commit=False)
+        skill.tasker = tasker
+        skill.save()
+        return redirect(reverse('service:show_my_skills'))
 
 
 class ShowSkillsView(ListView):
