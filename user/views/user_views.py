@@ -18,7 +18,22 @@ from user.models import Member
 
 
 def index(request):
-    return render(request, 'index.html', {})
+    if request.session.get('last_visit'):
+        last_visit_time = request.session.get('last_visit')
+        visits = request.session.get('visits', 0)
+        if (datetime.datetime.now() - datetime.datetime.strptime(last_visit_time[:-7], "%Y-%m-%d %H:%M:%S")).days >= 0:
+            request.session['visits'] = visits + 1
+            request.session['last_visit'] = str(datetime.datetime.now())
+
+    else:
+        request.session['last_visit'] = str(datetime.datetime.now())
+        request.session['visits'] = 1
+
+    if request.session.get('visits'):
+        count = request.session.get('visits')
+    else:
+        count = 0
+    return render(request, 'index.html', {'visits': count})
 
 
 def registration(request):
