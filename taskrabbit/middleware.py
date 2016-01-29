@@ -1,5 +1,33 @@
 from django.core.urlresolvers import resolve
 from django.http.response import HttpResponseForbidden
+from django.core.cache import cache
+
+
+class OnlineNowMiddleware(object):
+    @staticmethod
+    def process_request(request):
+
+        x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+        if x_forwarded_for:
+            user_ip = x_forwarded_for.split(',')[0]
+        else:
+            user_ip = request.META.get('REMOTE_ADDR')
+
+        online = cache.get('online_now')
+
+        if online:
+            online = [ip for ip in online if cache.get(ip)]
+        else:
+            online = []
+
+        cache.set(user_ip, user_ip, 600)
+
+        if user_ip not in online:
+            online.append(user_ip)
+
+        cache.set('online_now', online)
+
+        request.__class__.online_now = len(online)
 
 
 class CommonMiddleWare:
