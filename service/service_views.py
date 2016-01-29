@@ -21,9 +21,17 @@
 #     def get_queryset(self):
 #         print(self.kwargs.get('task_model_id'))
 #         return Skill.objects.filter(task_model_id=self.kwargs.get('task_model_id'))
+from django.http.response import HttpResponse
 from django.views.generic.edit import FormView
 
+from service.forms.skill_form import SkillForm
 
-class CreateTask(FormView):
-    template_engine = ''
-    form_class = ''
+
+class EditSkillView(FormView):
+    template_name = 'service/edit_skill.html'
+    form_class = SkillForm
+
+    def form_valid(self, form):
+        skill = form.save()
+        self.request.user.member.skills.add(skill)
+        return HttpResponse('مهارت شما با موفقیت ثبت شد.')

@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block navbar %}
+    <ul class="right hide-on-med-and-down">
+        <li><a href="{% url 'user:login' %}" class="normal navbar dropdown-button item"
+               data-activates="menu-links-1">ارائه خدمت</a>
+            <ul id="menu-links-1" class="dropdown-content">
+                    <li><a href="{% url 'service:edit_skill' %}">ثبت مهارت</a></li>
+            </ul>
+        </li>
+        <li><a href="{% url 'user:index' %}" class="normal navbar item">صفحه اصلی</a></li>
+
+    </ul>
+
+
+    <ul id="nav-mobile" class="side-nav">
+        <li class="active"><a href="#">صفحه ی اصلی</a></li>
+        <li><a href="{% url 'user:login' %}">ورود</a></li>
+        <li><a href="{% url 'user:registration' %}">ثبت نام</a></li>
+    </ul>
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
+
+{% endblock %}
+{% block container %}
+salam
+{% endblock %}

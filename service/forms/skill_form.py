@@ -1,19 +1,25 @@
 from django.forms.models import ModelForm
 from django import forms
+from django.forms.widgets import Select, Textarea
 
-from service.models import Skill
+from service.models import Skill, Category
 
 __author__ = 'garfild'
 
 
-class EditSkillForm(ModelForm):
-    # name = forms.CharField(required=True, label='نام خدمت', widget=forms.TextInput(
-    #     attrs={'class': 'required'}))
-    # image = forms.ImageField(required=True, label='عکس')
+class SkillForm(ModelForm):
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), label='دسته‌بندی',
+                                      widget=Select(attrs={'class': 'browser-default'}))
+
+    description = forms.CharField(widget=Textarea(attrs={'class': 'materialize-textarea'}),
+                                  label='شرح خدمت')
 
     class Meta:
         model = Skill
-        fields = ['name', 'image', 'description']
+        fields = '__all__'
         labels = {
-            'description': 'شرح خدمت'
+            'title': 'عنوان',
+            'description': 'شرح خدمت',
+            'category': 'دسته‌بندی‌‌',
+            'image': 'عکس'
         }
