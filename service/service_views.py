@@ -21,7 +21,8 @@
 #     def get_queryset(self):
 #         print(self.kwargs.get('task_model_id'))
 #         return Skill.objects.filter(task_model_id=self.kwargs.get('task_model_id'))
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, Http404
+from django.shortcuts import get_object_or_404
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 
@@ -55,4 +56,5 @@ class ShowSkillView(ListView):
     context_object_name = 'skill'
 
     def get_queryset(self, *args, **kwargs):
-        pass
+        skill_id = self.kwargs.pop('skill_id', '')
+        return get_object_or_404(Skill, id=skill_id)
