@@ -68,8 +68,8 @@ class EditCustomerProfileForm(forms.ModelForm):
         labels = {
             'mobile_number': 'شماره تلفن همراه',
             'city': 'شهر',
-            'address': 'آدرس'
-
+            'address': 'آدرس',
+            'image': 'عکس'
         }
 
 

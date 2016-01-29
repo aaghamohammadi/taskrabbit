@@ -193,7 +193,7 @@ def edit_customer_profile(request):
     if request.method == "POST":
         form = EditCustomerProfileForm(instance=member, data=request.POST)
         if form.is_valid():
-            member = form.save()
+            form.save()
             return HttpResponseRedirect('/')
     else:
         form = EditCustomerProfileForm(instance=member)
