@@ -22,6 +22,7 @@ class Member(models.Model):
     city = models.CharField(max_length=25)
     address = models.CharField(max_length=150)
     skills = models.ManyToManyField('service.Skill', related_name='member')
+    image = models.ImageField(upload_to='profile_images', default='/static/images/user/profile-image-default.jpg')
     # confirmation
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(default=datetime.date.today)
