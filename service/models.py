@@ -1,5 +1,6 @@
-from django.db import models
+import random
 
+from django.db import models
 
 # Create your models here.
 from review.models import CommentSet
@@ -29,10 +30,20 @@ class Skill(models.Model):
 class OrderBasket(models.Model):
     customer = models.ForeignKey('user.Member', related_name='baskets')
 
+    def __str__(self):
+        return str(self.customer) + " " + str(self.id)
+
 
 class Order(models.Model):
-    basket = models.ForeignKey('user.Member', related_name='orders')
+    basket = models.ForeignKey('OrderBasket', related_name='orders')
     skill = models.ForeignKey('Skill', related_name='orders')
+    code = models.IntegerField()
+    date = models.TimeField()
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.code = random.randint(0, 1000000)
+        super(Order, self).save()
 
 
 class Category(models.Model):
