@@ -84,6 +84,14 @@ input::-webkit-input-placeholder {
     z-index: 2;
 }
 
+.card {
+    position: relative;
+    margin: 0.5rem 0 1rem 0;
+    background-color: #fff;
+    transition: box-shadow .25s;
+    border-radius: 2px;
+}
+
 input#search {
     display: block;
     font-size: 16px;
@@ -98,6 +106,9 @@ input#search {
 .search .search-wrapper {
     margin: 0 12px;
     transition: margin .25s ease;
+}
+input:not([type]):focus:not([readonly]){
+    box-shadow: 0 1px 0 0 #ffffff;
 }
 
 .search-wrapper .icon-search {
