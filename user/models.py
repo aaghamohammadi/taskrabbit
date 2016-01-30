@@ -6,7 +6,6 @@ from django.db import models
 from django.db.models import Sum
 
 from review.models import CommentSet
-from service.models import OrderBasket, Order
 
 GENDER_CHOICES = (
     ('M', 'مرد'),
@@ -46,17 +45,9 @@ class Member(models.Model):
         if not self.pk:
             self.comment_set = CommentSet.objects.create()
         super(Member, self).save()
-        if not self.baskets.first():
-            OrderBasket.objects.create(customer=self)
 
-    #     birthday = models.jDateField()
 
-    def purchase(self):
-        OrderBasket.objects.create(customer=self)
-
-    def add_to_basket(self, skill):
-        current_basket = self.baskets.all().last()
-        Order.objects.create(basket=current_basket, skill=skill)
+        #     birthday = models.jDateField()
 
 # class Person(models.Model):
 #     first_name = models.CharField(max_length=25)

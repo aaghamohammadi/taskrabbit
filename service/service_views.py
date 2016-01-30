@@ -67,7 +67,7 @@ class ShowSkillView(ListView):
 class ShowOrders(ListView):
     model = Order
     template_name = 'service/show_orders.html'
-    context_object_name = 'order'
+    context_object_name = 'orders'
 
     def get_queryset(self):
-        return Order.objects.filter(basket__customer=self.request.user.member)
+        return Order.objects.filter(customer=self.request.user.member)

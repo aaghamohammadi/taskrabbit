@@ -5,36 +5,38 @@
         <div class="row">
             <div class="col s8">
                 <ul class="collection" dir="rtl">
-                    <li class="collection-item">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>خدمت گزار</th>
-                                <th>کد سفارش</th>
-                                <th>تاریخ</th>
-                                <th>قیمت تمام شده</th>
-                                <th>وضعیت</th>
-                                <th>ثبت نظر</th>
-                            </tr>
-                            </thead>
+                    {% for order in orders %}
+                        <li class="collection-item">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>خدمت گزار</th>
+                                    <th>کد سفارش</th>
+                                    <th>تاریخ</th>
+                                    <th>قیمت تمام شده</th>
+                                    <th>وضعیت</th>
+                                    <th>ثبت نظر</th>
+                                </tr>
+                                </thead>
 
-                            <tbody>
-                            <tr>
-                                <td>order.basket.customer.name</td>
-                                <td>۹۰۱۶۱۱۸۰۰۴</td>
-                                <td>۱۳۹۴/۱۰/۶</td>
-                                <td>۱۹،۲۰۰ تومان</td>
-                                <td>انجام‌شده</td>
+                                <tbody>
+                                <tr>
+                                    <td>{{ order.customer.full_name }}</td>
+                                    <td>{{ order.code }}</td>
+                                    <td>{{ order.date }}</td>
+                                    <td>{{ order.skill.price }}</td>
+                                    <td>{{ order.get_status_display }}</td>
 
-                                <td><h4><a href="#modal1" class="modal-trigger large teal-text lighten-4"><i
-                                        class="icon-blog"></i></a>
-                                </h4>
+                                    <td><h4><a href="#modal1" class="modal-trigger large teal-text lighten-4"><i
+                                            class="icon-blog"></i></a>
+                                    </h4>
 
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </li>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>

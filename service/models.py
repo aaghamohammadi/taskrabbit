@@ -27,18 +27,19 @@ class Skill(models.Model):
         super(Skill, self).save()
 
 
-class OrderBasket(models.Model):
-    customer = models.ForeignKey('user.Member', related_name='baskets')
-
-    def __str__(self):
-        return str(self.customer) + " " + str(self.id)
+ORDER_STATUS = (
+    ('S', 'معلق'),
+    ('P', 'در حال انجام'),
+    ('D', 'انجام شده')
+)
 
 
 class Order(models.Model):
-    basket = models.ForeignKey('OrderBasket', related_name='orders')
+    customer = models.ForeignKey('user.Member', related_name='orders')
     skill = models.ForeignKey('Skill', related_name='orders')
     code = models.IntegerField()
-    date = models.TimeField()
+    date = models.DateField()
+    status = models.CharField(max_length=1, choices=ORDER_STATUS, default='S', null=True)
 
     def save(self, *args, **kwargs):
         if not self.pk:
