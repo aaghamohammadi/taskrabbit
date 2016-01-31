@@ -1,0 +1,22 @@
+{% extends 'layout.html' %}
+{% block navbar %}
+    <ul class="right hide-on-med-and-down">
+
+            <li><a href="{% url 'user:registration' %}" class="normal navbar item">ثبت نام</a></li>
+
+        <li><a href="{% url 'user:login' %}" class="normal navbar dropdown-button item"
+               data-activates="menu-links-1">ورود</a>
+        </li>
+        <li class="active"><a href="#" class="normal navbar item">صفحه اصلی</a></li>
+
+    </ul>
+
+
+    <ul id="nav-mobile" class="side-nav">
+        <li class="active"><a href="#">صفحه ی اصلی</a></li>
+        <li><a href="{% url 'user:login' %}">ورود</a></li>
+        <li><a href="{% url 'user:registration' %}">ثبت نام</a></li>
+    </ul>
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
+
+{% endblock %}
