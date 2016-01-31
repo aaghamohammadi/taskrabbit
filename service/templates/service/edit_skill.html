@@ -17,11 +17,6 @@
                                 <p dir="rtl">{{ field }}</p>
                                 <div dir="rtl" class="error-msg">{{ field.errors }}</div>
                             {% endfor %}
-                            {% if form.errors %}
-                                {% for error in form.errors %}
-                                    <div dir="rtl" class="error-msg">{{ error }}</div>
-                                {% endfor %}
-                            {% endif %}
                         <br/>
                             <button name="member-reg-btn" type="submit"
                                     class="waves-effect waves-light btn full width">ثبت مهارت

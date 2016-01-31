@@ -1,6 +1,6 @@
 {% extends 'layout.html' %}
 {% load staticfiles %}
-
+{% load static %}
 {% block title %}
     سامانه برون سپاری محلی کارها
 {% endblock %}
@@ -26,7 +26,7 @@
                 {% if user.is_authenticated %}
                     <li><a href="{% url 'user:edit-customer-profile' %}">ویرایش حساب کاربری</a></li>
                     <li><a href="{% url 'user:profile_customer' user.id %}">حساب کاربری</a></li>
-                    <li><a href="{% url 'user:profile_tasker' user.id %}">حساب کارمندی</a></li>
+                    <li><a href="{% url 'service:edit_skill' %}">ثبت مهارت</a></li>
                     <li><a href="/logout/">خروج</a></li>
                 {% endif %}
 
@@ -74,8 +74,10 @@
                 <div class="col s12 m4">
                     <div class="card-panel teal" dir="rtl">
                          <span class="white-text">
-                            <strong>تعداد بازدید کنندگان:</strong>{{ visits }}<br/>
-                             <strong>تعداد کاربران بر خط:</strong>{{ request.online_now }}
+                            <strong>تعداد بازدید کنندگان: </strong>{{ visits }}<br/>
+                             <strong>تعداد کاربران بر خط: </strong>{{ request.online_now }}<br/>
+                             <strong>تعداد کارفرمایان: </strong>{{ members.count }}<br/>
+                             <strong>تعداد خدمات:</strong>{{ skills.count }}
                          </span>
                     </div>
                 </div>
@@ -100,6 +102,47 @@
                 </div>
 
             </div>
+            <div class="row" dir="rtl">
+                <h3>پرکارترین کارفرمایان</h3><br/><br/>
+                {% for member in members %}
+                    <div class="right col s12 m6 l4 post">
+                        <div class="card">
+                            <a href="#"></a>
+
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img src="{{ member.image }}">
+                            </div>
+                            <div class="card-content">{{ member.full_name }}<br/>{{ member.city }}</div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="row" dir="rtl">
+                <h3>برترین کارمندان</h3><br/><br/>
+                {% for skill in skills %}
+                    <div class="right col s12 m6 l4 post">
+                        <div class="card">
+                            <a href="#"></a>
+
+                            <div class="card-image waves-effect waves-block waves-light">
+                                <img src="{{ skill.tasker.image }}">
+                            </div>
+                            <div class="card-content">{{ skill.tasker.full_name }}<br/>{{ skill.tasker.city }}<br/>
+                            </div>
+                            <div class="card-action">
+                                <h5>
+                                    <a href="#" class="teal-text">{{ skill.title }}</a>
+
+                                </h5>
+                            </div>
+
+
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
 
         </div>
     </div>

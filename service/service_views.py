@@ -4,15 +4,24 @@
 # from service.models import TaskModel, Skill
 #
 #
-# class ShowCategories(ListView):
-#     model = TaskModel
-#     template_name = 'service/show_categories.html'
-#     context_object_name = 'task_models'
-#
-#     def get_queryset(self):
-#         return TaskModel.objects.all()
-#
-#
+from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404, redirect
+from django.views.generic.edit import FormView
+from django.views.generic.list import ListView
+
+from service.forms.skill_form import SkillForm
+from service.models import Skill, Category, Order
+
+
+class ShowCategories(ListView):
+    model = Category
+    template_name = 'service/show_categories.html'
+    context_object_name = 'categories'
+
+    def get_queryset(self):
+        return Category.objects.all()
+
+
 # class ShowTaskers(ListView):
 #     model = Skill
 #     template_name = 'service/show_taskers.html'
@@ -21,13 +30,6 @@
 #     def get_queryset(self):
 #         print(self.kwargs.get('task_model_id'))
 #         return Skill.objects.filter(task_model_id=self.kwargs.get('task_model_id'))
-from django.http.response import HttpResponse, Http404
-from django.shortcuts import get_object_or_404
-from django.views.generic.edit import FormView
-from django.views.generic.list import ListView
-
-from service.forms.skill_form import SkillForm
-from service.models import Skill
 
 
 class EditSkillView(FormView):
@@ -35,9 +37,11 @@ class EditSkillView(FormView):
     form_class = SkillForm
 
     def form_valid(self, form):
-        skill = form.save()
-        self.request.user.member.skills.add(skill)
-        return HttpResponse('مهارت شما با موفقیت ثبت شد.')
+        tasker = self.request.user.member
+        skill = form.save(commit=False)
+        skill.tasker = tasker
+        skill.save()
+        return redirect(reverse('service:show_my_skills'))
 
 
 class ShowSkillsView(ListView):
@@ -58,3 +62,12 @@ class ShowSkillView(ListView):
     def get_queryset(self, *args, **kwargs):
         skill_id = self.kwargs.pop('skill_id', '')
         return get_object_or_404(Skill, id=skill_id)
+
+
+class ShowOrders(ListView):
+    model = Order
+    template_name = 'service/show_orders.html'
+    context_object_name = 'orders'
+
+    def get_queryset(self):
+        return Order.objects.filter(customer=self.request.user.member)

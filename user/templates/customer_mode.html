@@ -1,0 +1,8 @@
+{% extends 'layout.html' %}
+{% block navbar %}
+    <ul class="right hide-on-med-and-down">
+        <li><a href="{% url 'user:edit-customer-profile' %}" class="normal navbar item">دیدن دسته‌ها</a></li>
+        <li><a href="{% url 'user:edit-customer-profile' %}" class="normal navbar item">مشاهده‌ی سفارشات</a></li>
+        <li><a href="#" class="normal navbar item">وضعیت کارگذار</a></li>
+    </ul>
+{% endblock %}

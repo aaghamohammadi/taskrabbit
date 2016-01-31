@@ -16,7 +16,7 @@ class SkillForm(ModelForm):
 
     class Meta:
         model = Skill
-        exclude = ['tasker', ]
+        exclude = ['tasker', 'comment_set', ]
         labels = {
             'title': 'عنوان',
             'description': 'شرح خدمت',

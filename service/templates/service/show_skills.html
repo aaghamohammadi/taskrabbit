@@ -1,4 +1,4 @@
-{% extends 'logged_in_user.html' %}
+{% extends 'customer_mode.html' %}
 {% load static %}
 {% block container %}
     <div class="container">
@@ -14,9 +14,12 @@
                         </div>
                         <div class="card-content">
                             <p>{{ skill.description }}</p>
+
+
                         </div>
                         <div class="card-action">
                             <a href="{% url 'service:show_skill' skill.tasker.id skill.id %}">نمایش مهارت</a>
+                            <a href="">استخدام</a>
                         </div>
                     </div>
 

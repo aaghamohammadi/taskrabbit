@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from review.forms import CommentForm, RatingForm
-from service.models import Skill, Order, OrderBasket
+from service.models import Order, Skill
 from user.forms import TaskerAvailabilityForm, EditCustomerProfileForm
 from user.forms import CustomerRegForm, LoginForm
 from user.models import Member
@@ -34,7 +34,9 @@ def index(request):
         count = request.session.get('visits')
     else:
         count = 0
-    return render(request, 'index.html', {'visits': count})
+    members = Member.objects.all()
+    skills = Skill.objects.all()
+    return render(request, 'index.html', {'visits': count, 'members': members, 'skills': skills})
 
 
 def registration(request):
@@ -133,7 +135,7 @@ def profile_user(request, customer_id):
 
     member = Member.objects.get(user=request.user)
     # print()
-    order_set = Order.objects.filter(basket=member)
+    order_set = Order.objects.filter(customer=member)
 
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
