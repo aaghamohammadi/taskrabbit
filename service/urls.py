@@ -1,5 +1,5 @@
 from service.service_views import EditSkillView, TaskerProfileView, ShowSkillView, ShowCategoriesView, ShowOrders, \
-    ShowCategorySkills, ShowSkillsView
+    ShowCategorySkills, ShowSkillsView, ShowTaskers
 from django.conf.urls import url
 
 __author__ = 'garfild'
@@ -14,5 +14,7 @@ urlpatterns = \
         url(r'tasker-profile/(?P<tasker_id>\d+)/$', TaskerProfileView.as_view(), name='tasker_profile'),
         url(r'show-skills/$', ShowSkillsView.as_view(), name='show_skills'),
         url(r'show-skill/(?P<tasker_id>\d+)/(?P<skill_id>\d+)/$', ShowSkillView.as_view(), name='show_skill'),
-        url(r'show-orders/', ShowOrders.as_view(), name='show_orders')
+        url(r'show-orders/', ShowOrders.as_view(), name='show_orders'),
+        url(r'show-taskers/', ShowTaskers.as_view(), name='show_taskers'),
+
     ]

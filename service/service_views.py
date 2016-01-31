@@ -73,6 +73,17 @@ class ShowSkillsView(ListView):
         return Skill.objects.all()
 
 
+class ShowTaskers(ListView):
+    model = Member
+    template_name = 'service/show_taskers.html'
+    context_object_name = 'taskers'
+
+    def get_queryset(self):
+        query = Member.objects.exclude(skills__isnull=True)
+        print(query)
+        return query
+
+
 class ShowOrders(ListView):
     model = Order
     template_name = 'service/show_orders.html'

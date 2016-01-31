@@ -1,14 +1,15 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% block navbar %}
+
     <ul class="right hide-on-med-and-down">
 
         <li><a href="{% url 'service:edit_skill' %}" class="normal navbar dropdown-button item"
                data-activates="menu-links-1">نمایش</a>
             <ul id="menu-links-1" class="dropdown-content">
                 <li><a href="{% url 'service:show_categories' %}">دسته‌ها</a></li>
-                <li><a href="{% url 'service:edit_skill' %}">کارمند‌ها</a></li>
-                <li><a href="{% url 'service:edit_skill' %}">مهارت‌ها</a></li>
+                <li><a href="{% url 'service:show_taskers' %}">کارمند‌ها</a></li>
+                <li><a href="{% url 'service:show_skills' %}">مهارت‌ها</a></li>
 
             </ul>
         </li>
