@@ -14,7 +14,16 @@ from service.models import Skill, Category, Order
 from user.models import Member
 
 
-class ShowCategories(ListView):
+class TaskerProfileView(ListView):
+    model = Member
+    template_name = 'service/tasker_profile.html'
+    context_object_name = 'tasker'
+
+    def get_queryset(self, *args, **kwargs):
+        return self.request.tasker
+
+
+class ShowCategoriesView(ListView):
     model = Category
     template_name = 'service/show_categories.html'
     context_object_name = 'categories'
@@ -45,16 +54,6 @@ class EditSkillView(FormView):
         return redirect(reverse('service:show_my_skills'))
 
 
-class ShowSkillsView(ListView):
-    model = Member
-    template_name = 'service/show_skills.html'
-    context_object_name = 'tasker'
-
-    def get_queryset(self, *args, **kwargs):
-        print(self.request.tasker)
-        return self.request.tasker
-
-
 class ShowSkillView(ListView):
     model = Skill
     template_name = 'service/show_skill.html'
@@ -63,6 +62,15 @@ class ShowSkillView(ListView):
     def get_queryset(self):
         skill_id = self.kwargs.pop('skill_id', '')
         return get_object_or_404(Skill, id=skill_id)
+
+
+class ShowSkillsView(ListView):
+    model = Skill
+    template_name = 'service/show_skills.html'
+    context_object_name = 'skills'
+
+    def get_queryset(self):
+        return Skill.objects.all()
 
 
 class ShowOrders(ListView):

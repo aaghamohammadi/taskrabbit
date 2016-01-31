@@ -1,0 +1,40 @@
+{% extends 'logged_in_user.html' %}
+{% load static %}
+{% load comment_tags %}
+{% block container %}
+    <div class="container" dir="rtl">
+        <div class="row">
+            {% for skill in tasker.skills.all %}
+
+
+                <div class="col s12 m6 ">
+                    <div class="card large" dir="rtl">
+                        <div class="card-image">
+                            <img src="{{ skill.image.url }}">
+                            <span class="card-title red-text">{{ skill.title }}</span>
+                        </div>
+                        <div class="card-content">
+                            <p>{{ skill.description }}</p>
+
+
+                        </div>
+                        <div class="card-action">
+                            <a href="{% url 'service:show_skill' skill.tasker.id skill.id %}">نمایش مهارت</a>
+                            <a href="">استخدام</a>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            {% endfor %}
+        </div>
+        {% comment_form_show tasker.comment_set %}
+    </div>
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script src="{% static 'js/review/comment.js' %}"></script>
+
+{% endblock %}

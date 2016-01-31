@@ -1,40 +1,49 @@
 {% extends 'logged_in_user.html' %}
 {% load static %}
-{% load comment_tags %}
 {% block container %}
     <div class="container" dir="rtl">
         <div class="row">
-            {% for skill in tasker.skills.all %}
+            {% for skill in skills.all %}
 
 
                 <div class="col s12 m6 ">
-                    <div class="card large" dir="rtl">
-                        <div class="card-image">
-                            <img src="{{ skill.image.url }}">
-                            <span class="card-title red-text">{{ skill.title }}</span>
+                    {#                todo nemidoonam kodoom behtare#}
+                    {#                    <div class="card large" dir="rtl">#}
+                    {#                        <div class="card-image">#}
+                    {#                            <img src="{{ skill.image.url }}">#}
+                    {#                            <span class="card-title red-text">{{ skill.title }}</span>#}
+                    {#                        </div>#}
+                    {#                        <div class="card-content">#}
+                    {#                            <p>{{ skill.description }}</p>#}
+                    {##}
+                    {##}
+                    {#                        </div>#}
+                    {#                        <div class="card-action">#}
+                    {#                            <a href="{% url 'service:show_skill' skill.tasker.id skill.id %}">نمایش مهارت</a>#}
+                    {#                            <a href="">استخدام</a>#}
+                    {#                        </div>#}
+                    {#                    </div>#}
+                    <div class="card medium">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="{{ skill.image.url }}">
                         </div>
                         <div class="card-content">
-                            <p>{{ skill.description }}</p>
-
-
+                            <span class="card-title activator blue-text">{{ skill.title }}<i
+                                    class="material-icons right icon-point-up grey-text text-darken-4"></i></span>
+                            <p><a href="{% url 'service:show_skill' skill.tasker.id skill.id %}" class="red-text">
+                                نمایش مهارت</a></p>
                         </div>
-                        <div class="card-action">
-                            <a href="{% url 'service:show_skill' skill.tasker.id skill.id %}">نمایش مهارت</a>
-                            <a href="">استخدام</a>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text ">{{ skill.title }}<i
+                                    class="material-icons right icon-point-down"></i></span>
+                            <p>{{ skill.description }}</p>
                         </div>
                     </div>
-
                 </div>
 
 
 
             {% endfor %}
         </div>
-        {% comment_form_show tasker.comment_set %}
     </div>
-{% endblock %}
-{% block script %}
-    {{ block.super }}
-    <script src="{% static 'js/review/comment.js' %}"></script>
-
 {% endblock %}
