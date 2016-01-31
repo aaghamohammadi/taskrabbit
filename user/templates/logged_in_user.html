@@ -3,8 +3,8 @@
 {% block navbar %}
 
     <ul class="right hide-on-med-and-down">
-
-        <li><a href="{% url 'service:edit_skill' %}" class="normal navbar dropdown-button item"
+        <li><a href="{% url 'user:logout' %}" class="normal navbar item">خروج</a></li>
+        <li><a href="" class="normal navbar dropdown-button item"
                data-activates="menu-links-1">نمایش</a>
             <ul id="menu-links-1" class="dropdown-content">
                 <li><a href="{% url 'service:show_categories' %}">دسته‌ها</a></li>
@@ -13,7 +13,7 @@
 
             </ul>
         </li>
-        <li><a href="{% url 'user:login' %}" class="normal navbar dropdown-button item"
+        <li><a href="" class="normal navbar dropdown-button item"
                data-activates="menu-links-2">حساب کاربری</a>
             <ul id="menu-links-2" class="dropdown-content">
                 <li><a href="{% url 'user:edit-customer-profile' %}">ویرایش</a></li>
