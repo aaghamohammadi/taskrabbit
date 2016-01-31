@@ -76,3 +76,8 @@
     </div>
     {% comment_form_show tasker.comment_set %}
 {% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script src="{% static 'js/review/comment.js' %}"></script>
+
+{% endblock %}
