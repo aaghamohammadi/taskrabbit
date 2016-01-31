@@ -4,6 +4,42 @@
 {% block container %}
     <div class="container" dir="rtl">
         <div class="row">
+            <div class="col m6 ">
+                <img src="{{ tasker.image }}">
+            </div>
+            <div class="col m6">
+                <ul class="collection" dir="rtl">
+
+                    <li class="collection-item">
+                        <strong>نام کامل:</strong>
+                        {{ tasker.user.username }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>تلفن همراه:</strong>
+                        {{ tasker.mobile_number }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>جنسیت:</strong>
+                        {% if tasker.gender == 'M' %}
+                            مرد
+                        {% else %}
+                            زن
+                        {% endif %}
+                    </li>
+                    <li class="collection-item">
+                        <strong>شهر:</strong>
+                        {{ tasker.city }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>آدرس:</strong>
+                        {{ tasker.address }}
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+        <div class="row">
             {% for skill in tasker.skills.all %}
 
 
@@ -30,11 +66,6 @@
 
             {% endfor %}
         </div>
-        {% comment_form_show tasker.comment_set %}
     </div>
-{% endblock %}
-{% block script %}
-    {{ block.super }}
-    <script src="{% static 'js/review/comment.js' %}"></script>
-
+    {% comment_form_show tasker.comment_set %}
 {% endblock %}
