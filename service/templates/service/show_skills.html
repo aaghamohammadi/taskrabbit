@@ -1,9 +1,10 @@
 {% extends 'customer_mode.html' %}
 {% load static %}
+{% load comment_tags %}
 {% block container %}
     <div class="container">
         <div class="row">
-            {% for skill in skills %}
+            {% for skill in tasker.skills.all %}
 
 
                 <div class="col s12 m4 ">
@@ -29,5 +30,11 @@
 
             {% endfor %}
         </div>
+        {% comment_form_show tasker.comment_set %}
     </div>
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script src="{% static 'js/review/comment.js' %}"></script>
+
 {% endblock %}
