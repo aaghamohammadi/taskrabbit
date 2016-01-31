@@ -13,9 +13,9 @@ class Skill(models.Model):
     price = models.IntegerField()
     image = models.ImageField(upload_to='skill_images')
     tasker = models.ForeignKey('user.Member', related_name='skills')
+
     comment_set = models.OneToOneField('review.CommentSet', related_name='skill')
 
-    # todo bayad duration dashte bashe
     def __str__(self):
         return str(self.title) + " " + str(self.category)
 

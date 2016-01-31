@@ -9,17 +9,34 @@
 {% endblock %}
 {% block navbar %}
     <ul class="right hide-on-med-and-down">
-        <li class="active"><a href="#" class="normal navbar item">ثبت نام</a></li>
-        <li><a href="{% url 'user:login' %}" class="normal navbar item">ورود</a></li>
-        <li><a href="{% url 'user:index' %}" class="normal navbar item">صفحه ی اصلی</a></li>
+        <li class="active"><a href="{% url 'user:registration' %}" class="normal navbar item">ثبت نام</a></li>
+        <li><a href="{% url 'user:login' %}" class="normal navbar dropdown-button item"
+               data-activates="menu-links-1">
+            {% if user.is_authenticated %}
+                حساب کاربری
+            {% else %}
+                ورود
+            {% endif %}</a>
+            <ul id="menu-links-1" class="dropdown-content">
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'user:edit-customer-profile' %}">ویرایش حساب کاربری</a></li>
+                    <li><a href="{% url 'user:profile_customer' user.id %}">حساب کاربری</a></li>
+                    <li><a href="{% url 'user:profile_tasker' user.id %}">حساب کارمندی</a></li>
+                    <li><a href="/logout/">خروج</a></li>
+                {% endif %}
+
+
+            </ul>
+        </li>
+        <li><a href="{% url 'user:index' %}" class="normal navbar item">صفحه اصلی</a></li>
 
     </ul>
 
 
     <ul id="nav-mobile" class="side-nav">
-        <li><a href="{% url 'user:index' %}">صفحه ی اصلی</a></li>
+        <li class="active"><a href="#">صفحه ی اصلی</a></li>
         <li><a href="{% url 'user:login' %}">ورود</a></li>
-        <li class="active"><a href="#">ثبت نام</a></li>
+        <li><a href="{% url 'user:registration' %}">ثبت نام</a></li>
     </ul>
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
 {% endblock %}
@@ -30,6 +47,9 @@
         <div class="row">
             <div class="col s12 m2">&nbsp;</div>
             <div class="col s12 m8">
+            <p dir="rtl">
+                در صورت ثبت نام موفقیت آمیز ایمیل فعال سازی حساب کاربری  ارسال خواهد شد.
+            </p>
                 <form method="post">
                     {% csrf_token %}
                     <div class="card">

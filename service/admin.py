@@ -6,3 +6,4 @@ admin.site.register(Skill)
 admin.site.register(Category)
 admin.site.register(Order)
 
+

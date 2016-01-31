@@ -12,6 +12,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from review.forms import CommentForm, RatingForm
+from service.models import Order, Skill
 from user.forms import TaskerAvailabilityForm, EditCustomerProfileForm
 from user.forms import CustomerRegForm, LoginForm
 from user.models import Member
@@ -33,7 +34,9 @@ def index(request):
         count = request.session.get('visits')
     else:
         count = 0
-    return render(request, 'index.html', {'visits': count})
+    members = Member.objects.all()
+    skills = Skill.objects.all()
+    return render(request, 'index.html', {'visits': count, 'members': members, 'skills': skills})
 
 
 def registration(request):
@@ -42,15 +45,6 @@ def registration(request):
             customer_reg_form = CustomerRegForm(request.POST)
 
             if customer_reg_form.is_valid():
-                # email = customer_reg_form.cleaned_data['member_email']
-                # password = customer_reg_form.cleaned_data['member_password']
-                # username = customer_reg_form.cleaned_data['full_name']
-                # user = User.objects.create_user(email=email, password=password, username=username)
-                # user.save()
-                # customer_reg = customer_reg_form.save(commit=False)
-                # customer_reg.user = user
-                # customer_reg.save()
-                # return HttpResponseRedirect('/')
                 username = customer_reg_form.cleaned_data['full_name']
                 email = customer_reg_form.cleaned_data['member_email']
                 password = customer_reg_form.cleaned_data['member_password']
@@ -102,6 +96,9 @@ def login_user(request):
 
             user = authenticate(username=username, password=password)
             if user is not None:
+                if not user.is_active:
+                    msg = "لطفا از طریق ایمیل فعال سازی، حساب کاربری خود را فعال نمایید."
+                    return render(request, 'login.html', {'login_form': login_form, 'msg': msg})
                 login(request, user)
                 return HttpResponseRedirect('/')
             msg = "نام کاربری یا کلمه عبور نامعتبر است."
@@ -111,21 +108,6 @@ def login_user(request):
     else:
         login_form = LoginForm()
         return render(request, 'login.html', {'login_form': login_form})
-
-
-# def additional_info(request):
-#     if request.method == "POST":
-#         additional_info_form = AdditionalInfo(request.POST)
-#         if additional_info_form.is_valid():
-#             pass
-#
-#         else:
-#             return render(request, 'additional-info.html', {'additional_info_form': additional_info_form})
-#
-#     else:
-#         additional_info_form = AdditionalInfo()
-#         return render(request, 'additional-info.html',
-#                       {'additional_info_form': additional_info_form})
 
 
 def logout_user(request):
@@ -150,7 +132,11 @@ def register_confirm(request, activation_key):
 
 def profile_user(request, customer_id):
     template_name = 'profile-customer.html'
+
     member = Member.objects.get(user=request.user)
+    # print()
+    order_set = Order.objects.filter(customer=member)
+
     if request.method == "POST":
         comment_form = CommentForm(request.POST)
         rating_form = RatingForm(request.POST)
@@ -159,7 +145,8 @@ def profile_user(request, customer_id):
         comment_form = CommentForm()
         rating_form = RatingForm()
         return render(request, template_name,
-                      {'member': member, 'comment_form': comment_form, 'rating_form': rating_form})
+                      {'member': member, 'comment_form': comment_form, 'rating_form': rating_form,
+                       'order_set': order_set})
 
 
 class ProfileTakser(TemplateView):
@@ -177,23 +164,14 @@ class Work(TemplateView):
         return render(request, self.template_name, {})
 
 
-# class ProfileCustomer(FormView):
-#     template_name = 'profile-customer.html'
-#     model = Member
-#
-#     def get(self, request, *args, **kwargs):
-#         # customer_id = kwargs.pop('customer_id')
-#         comment_form = CommentForm()
-#         rating_form = RatingForm()
-#         return render(request, self.template_name, {'comment_form': comment_form,
-#                                                     'rating_form': rating_form})
 def edit_customer_profile(request):
     template_name = 'edit-customer-profile.html'
     member = Member.objects.get(user=request.user)
     if request.method == "POST":
         form = EditCustomerProfileForm(instance=member, data=request.POST)
         if form.is_valid():
-            member = form.save()
+            image = form.cleaned_data['image']
+            form.save()
             return HttpResponseRedirect('/')
     else:
         form = EditCustomerProfileForm(instance=member)
