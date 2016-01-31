@@ -15,6 +15,7 @@ class CommentSet(models.Model):
 class Comment(models.Model):
     context = models.TextField("متن نظر")
     comment_set = models.ForeignKey('CommentSet', related_name='comments')
+    author = models.ForeignKey('user.Member', related_name='comments')
 
     class Meta:
         verbose_name_plural = 'کامنت ها'

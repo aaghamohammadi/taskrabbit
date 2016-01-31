@@ -5,7 +5,7 @@ from review.models import Comment, Rating
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = '__all__'
+        exclude = ['author', ]
         widgets = {
             'context': forms.Textarea(attrs={'class': 'materialize-textarea'}),
             'comment_set': forms.HiddenInput()

@@ -6,11 +6,9 @@
 #
 from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, redirect
-from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 
-from review.forms import CommentForm
 from service.forms.skill_form import SkillForm
 from service.models import Skill, Category, Order
 
@@ -56,18 +54,14 @@ class ShowSkillsView(ListView):
         return Skill.objects.all()
 
 
-class ShowSkillView(TemplateView):
+class ShowSkillView(ListView):
     model = Skill
     template_name = 'service/show_skill.html'
     context_object_name = 'skill'
 
-    def get_context_data(self, **kwargs):
-        context = super(ShowSkillView, self).get_context_data()
+    def get_queryset(self):
         skill_id = self.kwargs.pop('skill_id', '')
-        context['skill'] = get_object_or_404(Skill, id=skill_id)
-        context['comment_form'] = CommentForm(initial={'comment_set': context['skill'].comment_set})
-
-        return context
+        return get_object_or_404(Skill, id=skill_id)
 
 
 class ShowOrders(ListView):
