@@ -27,7 +27,7 @@ class Member(models.Model):
     # confirmation
     activation_key = models.CharField(max_length=40, blank=True)
     key_expires = models.DateTimeField(default=datetime.date.today)
-    # comment_set = models.ForeignKey('review.CommentSet', related_name='member', unique=True)
+    comment_set = models.OneToOneField('review.CommentSet', related_name='member')
     credit = models.IntegerField(default=0)
 
     def get_score(self):

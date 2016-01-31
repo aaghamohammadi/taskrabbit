@@ -10,6 +10,6 @@ urlpatterns = \
         url(r'edit-skill/', EditSkillView.as_view(), name='edit_skill'),
         url(r'show-my-skills/$', ShowSkillsView.as_view(), name='show_my_skills'),
         url(r'show-skills/(?P<tasker_id>\d+)/$', ShowSkillsView.as_view(), name='show_skills'),
-        url(r'show-skills/(?P<tasker_id>\d+)/(?P<skill_id>\d+)/$', ShowSkillView.as_view(), name='show_skill'),
+        url(r'show-skill/(?P<tasker_id>\d+)/(?P<skill_id>\d+)/$', ShowSkillView.as_view(), name='show_skill'),
         url(r'show-orders/', ShowOrders.as_view(), name='show_orders')
     ]

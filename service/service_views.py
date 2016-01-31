@@ -11,6 +11,7 @@ from django.views.generic.list import ListView
 
 from service.forms.skill_form import SkillForm
 from service.models import Skill, Category, Order
+from user.models import Member
 
 
 class ShowCategories(ListView):
@@ -45,13 +46,13 @@ class EditSkillView(FormView):
 
 
 class ShowSkillsView(ListView):
-    model = Skill
+    model = Member
     template_name = 'service/show_skills.html'
-    context_object_name = 'skills'
+    context_object_name = 'tasker'
 
     def get_queryset(self, *args, **kwargs):
         print(self.request.tasker)
-        return Skill.objects.all()
+        return self.request.tasker
 
 
 class ShowSkillView(ListView):
@@ -59,7 +60,7 @@ class ShowSkillView(ListView):
     template_name = 'service/show_skill.html'
     context_object_name = 'skill'
 
-    def get_queryset(self, *args, **kwargs):
+    def get_queryset(self):
         skill_id = self.kwargs.pop('skill_id', '')
         return get_object_or_404(Skill, id=skill_id)
 

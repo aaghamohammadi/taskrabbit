@@ -12,17 +12,21 @@ from django.db import models
 
 
 class CommentSet(models.Model):
-    pass
+    def __str__(self):
+        return str(self.id)
 
 
 class Comment(models.Model):
-    title = models.CharField("عنوان", default='', max_length=25)
     context = models.TextField("متن نظر")
-    comment_set = models.ForeignKey('CommentSet', related_name='comments', unique=True)
+    comment_set = models.ForeignKey('CommentSet', related_name='comments')
+    author = models.ForeignKey('user.Member', related_name='comments')
 
     class Meta:
         verbose_name_plural = 'کامنت ها'
         verbose_name = 'کامنت'
+
+    def __str__(self):
+        return self.context
 
 
 class Rating(models.Model):
