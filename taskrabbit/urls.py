@@ -19,7 +19,6 @@ from django.contrib import admin
 
 from taskrabbit import settings
 
-
 urlpatterns = \
     [
         url(r'^admin/', include(admin.site.urls)),
@@ -27,6 +26,6 @@ urlpatterns = \
         url(r'^service/', include('service.urls', namespace='service')),
 
         url(r'^', include('user.urls', namespace='user')),
-
+        url(r'^review/', include('review.urls', namespace='review'))
 
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
