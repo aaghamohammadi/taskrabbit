@@ -2,25 +2,38 @@
 {% load static %}
 {% block navbar %}
     <ul class="right hide-on-med-and-down">
-        <li><a href="{% url 'user:login' %}" class="normal navbar dropdown-button item"
-               data-activates="menu-links-1">ارائه خدمت</a>
+
+        <li><a href="{% url 'service:edit_skill' %}" class="normal navbar dropdown-button item"
+               data-activates="menu-links-1">نمایش</a>
             <ul id="menu-links-1" class="dropdown-content">
-                    <li><a href="{% url 'service:edit_skill' %}">ثبت مهارت</a></li>
+                <li><a href="{% url 'service:show_categories' %}">دسته‌ها</a></li>
+                <li><a href="{% url 'service:edit_skill' %}">کارمند‌ها</a></li>
+                <li><a href="{% url 'service:edit_skill' %}">مهارت‌ها</a></li>
+
             </ul>
         </li>
+        <li><a href="{% url 'user:edit-customer-profile' %}" class="normal navbar item">حساب کاربری</a></li>
+        <li><a href="{% url 'user:profile_customer' user.id %}" class="normal navbar item">حساب کاربری</a></li>
+        <li><a href="{% url 'user:profile_tasker' user.id %}" class="normal navbar item">حساب کارمندی</a></li>
+        <li><a href="{% url 'service:edit_skill' %}" class="left normal navbar dropdown-button item"
+               data-activates="menu-links-1">سفارشات</a>
+        </li>
+
         <li><a href="{% url 'user:index' %}" class="normal navbar item">صفحه اصلی</a></li>
 
     </ul>
-     <div dir="rtl">{{ message }}</div>
+    <ul class="left hide-on-med-and-down">
+        <li><a href="{% url 'service:edit_skill' %}" class="normal navbar  item"
+               data-activates="menu-links-1">ثبت مهارت</a>
+        </li>
 
-{#    <ul id="nav-mobile" class="side-nav">#}
-{#        <li class="active"><a href="#">صفحه ی اصلی</a></li>#}
-{#        <li><a href="{% url 'user:login' %}">ورود</a></li>#}
-{#        <li><a href="{% url 'user:registration' %}">ثبت نام</a></li>#}
-{#    </ul>#}
+    </ul>
+    <div dir="rtl">{{ message }}</div>
+
+
     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
 
 {% endblock %}
 {% block container %}
-salam
+
 {% endblock %}

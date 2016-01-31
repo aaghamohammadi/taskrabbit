@@ -10,10 +10,10 @@ class Skill(models.Model):
     title = models.CharField(max_length=80)
     description = models.CharField(max_length=500)
     category = models.ForeignKey('Category', related_name='skills')
+    price = models.IntegerField()
     image = models.ImageField(upload_to='skill_images')
     tasker = models.ForeignKey('user.Member', related_name='skills')
     comment_set = models.OneToOneField('review.CommentSet', related_name='skill')
-    price = models.IntegerField()
 
     # todo bayad duration dashte bashe
     def __str__(self):
@@ -49,6 +49,7 @@ class Order(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
+    image = models.ImageField(upload_to='category_images')
 
     def __str__(self):
         return self.name

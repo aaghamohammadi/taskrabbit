@@ -23,14 +23,14 @@ class ShowCategories(ListView):
         return Category.objects.all()
 
 
-# class ShowTaskers(ListView):
-#     model = Skill
-#     template_name = 'service/show_taskers.html'
-#     context_object_name = 'skills'
-#
-#     def get_queryset(self):
-#         print(self.kwargs.get('task_model_id'))
-#         return Skill.objects.filter(task_model_id=self.kwargs.get('task_model_id'))
+class ShowCategorySkills(ListView):
+    model = Skill
+    template_name = 'service/show_category_skills.html'
+    context_object_name = 'skills'
+
+    def get_queryset(self):
+        print(self.kwargs.get('category_id'))
+        return Skill.objects.filter(category_id=self.kwargs.get('category_id'))
 
 
 class EditSkillView(FormView):

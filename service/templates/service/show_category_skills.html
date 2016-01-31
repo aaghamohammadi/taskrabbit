@@ -1,0 +1,47 @@
+{% extends 'logged_in_user.html' %}
+{% load static %}
+{% block container %}
+    <div class="container" dir="rtl">
+        <div class="row">
+            {% for skill in skills.all %}
+
+
+                <div class="col s12 m6 ">
+                    <div class="card small" dir="rtl">
+                        <div class="card-image">
+                            <img src="{{ skill.image.url }}">
+                            <span class="card-title red-text">{{ skill.title }}</span>
+                            <span class="right card-title blue-text" dir="rtl">{{ skill.price }}</span>
+                        </div>
+                        <div class="card-content">
+                            <p>{{ skill.description }}</p>
+                        </div>
+                        <div class="card-action">
+                            <a href="{% url 'service:show_skill' skill.tasker.id skill.id %}">نمایش مهارت</a>
+                            <a href="">استخدام</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img class="activator" src="{{ skill.image.url }}">
+                        </div>
+                        <div class="card-content">
+                            <span class="card-title activator red-text">{{ skill.title }}<i
+                                    class="material-icons right">...</i></span>
+                            <p><a href="{% url 'service:show_skill' skill.tasker.id skill.id %}">نمایش مهارت</a></p>
+                        </div>
+                        <div class="card-reveal">
+                            <span class="card-title grey-text text-darken-4">{{ skill.title }}<i class="material-icons right">close</i></span>
+                            <p>{{ skill.description }}</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
