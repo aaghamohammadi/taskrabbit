@@ -42,7 +42,7 @@ class Order(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.code = random.randint(0, 100000000)
+            self.code = random.randint(1000000, 9999999)
         super(Order, self).save()
 
 

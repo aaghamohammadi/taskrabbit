@@ -87,13 +87,13 @@ class ShowTaskersView(ListView):
         return query
 
 
-class ShowOrdersView(ListView):
+class ShowCustomersOrders(ListView):
     model = Order
-    template_name = 'service/show_orders.html'
+    template_name = 'service/show_customers_order.html'
     context_object_name = 'orders'
 
     def get_queryset(self):
-        return Order.objects.filter(customer=self.request.user.member)
+        return Order.objects.filter(skill__tasker=self.request.user.member)
 
 
 class ShowFactorView(ListView):
