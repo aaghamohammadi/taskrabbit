@@ -15,7 +15,8 @@ class CommentForm(forms.ModelForm):
 class RatingForm(forms.ModelForm):
     class Meta:
         model = Rate
-        exclude = ['customer', 'order']
+        exclude = ['customer']
         widgets = {
             'rate': forms.TextInput(attrs={'type': 'range', 'min': '0', 'max': '10'}),
+            'order': forms.HiddenInput()
         }

@@ -28,7 +28,7 @@ class Comment(models.Model):
 
 
 class Rate(models.Model):
-    order = models.ForeignKey('service.Order', related_name='rates')
+    order = models.OneToOneField('service.Order', related_name='rate')
     customer = models.ForeignKey('user.Member', related_name='customer')
     rate = models.PositiveSmallIntegerField("نمره", default=0)
 
