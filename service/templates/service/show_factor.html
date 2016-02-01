@@ -1,0 +1,38 @@
+{% extends 'logged_in_user.html' %}
+{% block container %}
+    <div class="container">
+        <div class="row">
+
+            <div class="col s4">
+                <ul class="collection" dir="rtl">
+
+                    <li class="collection-item">
+                        <strong>نام کامل:</strong>
+                        {{ member.user.username }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>تلفن همراه:</strong>
+                        {{ member.mobile_number }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>جنسیت:</strong>
+                        {% if member.gender == 'M' %}
+                            مرد
+                        {% else %}
+                            زن
+                        {% endif %}
+                    </li>
+                    <li class="collection-item">
+                        <strong>شهر:</strong>
+                        {{ member.city }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>آدرس:</strong>
+                        {{ member.address }}
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,21 +1,13 @@
 {% extends 'logged_in_user.html' %}
 {% load comment_tags %}
+{% load service_tags %}
 {% load static %}
 {% block container %}
     <div class="container" dir="rtl">
         <div class="row">
 
             <div class="col s12 m8 offset-m2">
-                <div class="card large" dir="rtl">
-                    <div class="card-image">
-                        <img src="{{ skill.image.url }}">
-                        <span class="card-title red-text">{{ skill.title }}</span>
-                    </div>
-                    <div class="card-content">
-                        <p>{{ skill.description }}</p>
-                    </div>
-
-                </div>
+            {% show_skill skill 2 %}
 
             </div>
 

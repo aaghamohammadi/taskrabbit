@@ -91,3 +91,12 @@ class ShowOrders(ListView):
 
     def get_queryset(self):
         return Order.objects.filter(customer=self.request.user.member)
+
+
+class ShowFactor(ListView):
+    model = Skill
+    template_name = 'service/show_factor.html'
+    context_object_name = 'skill'
+
+    def get_queryset(self, **kwargs):
+        return get_object_or_404(Skill, id=kwargs.get('skill_id'))
