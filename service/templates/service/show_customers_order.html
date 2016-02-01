@@ -5,20 +5,20 @@
         <div class="row">
             <div class="col s12">
                 <ul class="collection" dir="rtl">
-                    {% for order in orders %}
-                        <li class="collection-item">
-                            <table>
-                                <thead>
-                                <tr>
-                                    <th>مشتری</th>
-                                    <th>نام خدمت</th>
-                                    <th>دسته</th>
-                                    <th>کد سفارش</th>
-                                    <th>تاریخ</th>
-                                    <th>قیمت</th>
-                                    <th>وضعیت</th>
-                                </tr>
-                                </thead>
+                    <li class="collection-item">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>مشتری</th>
+                                <th>نام خدمت</th>
+                                <th>دسته</th>
+                                <th>کد سفارش</th>
+                                <th>تاریخ</th>
+                                <th>قیمت</th>
+                                <th>وضعیت</th>
+                            </tr>
+                            </thead>
+                            {% for order in orders %}
 
                                 <tbody>
                                 <tr>
@@ -32,9 +32,10 @@
 
                                 </tr>
                                 </tbody>
-                            </table>
-                        </li>
-                    {% endfor %}
+                            {% endfor %}
+
+                        </table>
+                    </li>
                 </ul>
             </div>
         </div>

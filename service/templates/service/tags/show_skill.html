@@ -12,6 +12,8 @@
             {% ifnotequal request.user.member skill.tasker %}
                 <a href="{% url 'service:show_factor' skill.id %}">استخدام</a>
             {% endifnotequal %}
+            <a class="left">{{ skill.price }} تومان</a>
+
         </div>
         <div class="card-reveal">
                             <span class="card-title grey-text ">{{ skill.title }}<i
@@ -33,6 +35,8 @@
             {% ifnotequal request.user.member skill.tasker %}
                 <a href="{% url 'service:show_factor' skill.id %}">استخدام</a>
             {% endifnotequal %}
+            <a class="left">{{ skill.price }} تومان</a>
+
         </div>
     </div>
 {% endifequal %}

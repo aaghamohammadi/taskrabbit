@@ -16,17 +16,4 @@ $(document).ready(function () {
         });
         return false;
     });
-    ////todo inja bas yeki she syntaxesho balad naboodam
-    //$('.rate_form').submit(function () {
-    //    console.log("salam");
-    //    $.ajax({
-    //        data: $(this).serialize(),
-    //        type: $(this).attr('method'), // GET or POST
-    //        url: $(this).attr('action'), // the file to call
-    //        success: function (response) { // on success..
-    //            //window.location.reload();
-    //        }
-    //    });
-    //    return false;
-    //});
 });
