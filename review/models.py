@@ -3,8 +3,6 @@
 from __future__ import unicode_literals
 from django.contrib.auth.models import User
 
-
-
 from django.db import models
 
 
@@ -29,14 +27,14 @@ class Comment(models.Model):
         return self.context
 
 
-class Rating(models.Model):
-    tasker = models.ForeignKey('user.Member')
+class Rate(models.Model):
+    order = models.ForeignKey('service.Order', related_name='rates')
     customer = models.ForeignKey('user.Member', related_name='customer')
-    rating = models.PositiveSmallIntegerField("نمره", default=0)
+    rate = models.PositiveSmallIntegerField("نمره", default=0)
 
     class Meta:
         verbose_name_plural = 'امتیازها'
         verbose_name = 'امتیاز'
 
     def save(self, **kwargs):
-        super(Rating, self).save()
+        super(Rate, self).save()
