@@ -28,7 +28,6 @@ class Skill(models.Model):
 
 
 ORDER_STATUS = (
-    ('S', 'معلق'),
     ('P', 'در حال انجام'),
     ('D', 'انجام شده')
 )
@@ -38,12 +37,12 @@ class Order(models.Model):
     customer = models.ForeignKey('user.Member', related_name='orders')
     skill = models.ForeignKey('Skill', related_name='orders')
     code = models.IntegerField()
-    date = models.DateField()
-    status = models.CharField(max_length=1, choices=ORDER_STATUS, default='S', null=True)
+    order_time = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=1, choices=ORDER_STATUS, default='P', null=True)
 
     def save(self, *args, **kwargs):
         if not self.pk:
-            self.code = random.randint(0, 1000000)
+            self.code = random.randint(0, 100000000)
         super(Order, self).save()
 
 

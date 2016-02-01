@@ -1,5 +1,5 @@
-from service.service_views import EditSkillView, TaskerProfileView, ShowSkillView, ShowCategoriesView, ShowOrders, \
-    ShowCategorySkills, ShowSkillsView, ShowTaskers, ShowFactor
+from service.service_views import EditSkillView, TaskerProfileView, ShowSkillView, ShowCategoriesView, ShowOrdersView, \
+    ShowCategorySkills, ShowSkillsView, ShowTaskersView, ShowFactorView, RecordOrderView
 from django.conf.urls import url
 
 __author__ = 'garfild'
@@ -14,7 +14,8 @@ urlpatterns = \
         url(r'tasker-profile/(?P<tasker_id>\d+)/$', TaskerProfileView.as_view(), name='tasker_profile'),
         url(r'show-skills/$', ShowSkillsView.as_view(), name='show_skills'),
         url(r'show-skill/(?P<tasker_id>\d+)/(?P<skill_id>\d+)/$', ShowSkillView.as_view(), name='show_skill'),
-        url(r'show-orders/', ShowOrders.as_view(), name='show_orders'),
-        url(r'show-taskers/', ShowTaskers.as_view(), name='show_taskers'),
-        url(r'order/(?P<tasker_id>\d+)/(?P<skill_id>\d+)/', ShowFactor.as_view(), name='show_factor')
+        url(r'show-orders/', ShowOrdersView.as_view(), name='show_orders'),
+        url(r'show-taskers/', ShowTaskersView.as_view(), name='show_taskers'),
+        url(r'show-factor/(?P<skill_id>\d+)/', ShowFactorView.as_view(), name='show_factor'),
+        url(r'record-order/(?P<skill_id>\d+)/', RecordOrderView.as_view(), name='record_order')
     ]

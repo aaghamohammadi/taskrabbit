@@ -38,17 +38,19 @@
 <div class="row">
     <div class="col s12 m8 offset-m2" dir="rtl">
         {% for comment in comment_set.comments.all %}
-
-            {{ comment.author.full_name }}
-            <ul class="collection" dir="rtl">
-
-
-                <p>
-                    {{ comment.context }}
-                </p>
-
-
-            </ul>
+            {% ifequal comment.author request.user.member %}
+                <div class="green-text">
+                    {{ comment.author.full_name }}
+                    <ul class="collection" dir="rtl">
+                        <p>{{ comment.context }}</p>
+                    </ul>
+                </div>
+            {% else %}
+                {{ comment.author.full_name }}
+                <ul class="collection" dir="rtl">
+                    <p>{{ comment.context }}</p>
+                </ul>
+            {% endifequal %}
         {% endfor %}
     </div>
 </div>

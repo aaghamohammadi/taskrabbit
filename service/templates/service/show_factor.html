@@ -3,20 +3,21 @@
     <div class="container">
         <div class="row">
 
-            <div class="col s4">
+            <div class="col s6">
+                <div dir="rtl">اطلاعات فروشنده</div>
                 <ul class="collection" dir="rtl">
 
                     <li class="collection-item">
-                        <strong>نام کامل:</strong>
-                        {{ member.user.username }}
+                        <strong>نام:</strong>
+                        {{ skill.tasker.user.username }}
                     </li>
                     <li class="collection-item">
                         <strong>تلفن همراه:</strong>
-                        {{ member.mobile_number }}
+                        {{ skill.tasker.mobile_number }}
                     </li>
                     <li class="collection-item">
                         <strong>جنسیت:</strong>
-                        {% if member.gender == 'M' %}
+                        {% if skill.tasker.gender == 'M' %}
                             مرد
                         {% else %}
                             زن
@@ -24,15 +25,58 @@
                     </li>
                     <li class="collection-item">
                         <strong>شهر:</strong>
-                        {{ member.city }}
+                        {{ skill.tasker.city }}
                     </li>
                     <li class="collection-item">
                         <strong>آدرس:</strong>
-                        {{ member.address }}
+                        {{ skill.tasker.address }}
                     </li>
 
                 </ul>
             </div>
+            <div class="col s6">
+                <div dir="rtl">اطلاعات مهارت</div>
+                <ul class="collection" dir="rtl">
+                    <li class="collection-item">
+                        <strong>عنوان:</strong>
+                        {{ skill.title }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>دسته:</strong>
+                        {{ skill.category }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>قیمت:</strong>
+                        {{ skill.price }}
+                    </li>
+                </ul>
+                <a class="right waves-effect waves-light btn order">استخدام</a><br/></div>
+            <p class="message right"></p>
         </div>
     </div>
+    </div>
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script>
+        $(document).ready(function () {
+            console.log("salam");
+            var skill_id = {{ skill.id }};
+            $('.order').click(function () {
+                $.ajax({
+                    type: 'get', // GET or POST
+                    url: '{% url 'service:record_order' skill.id %}', // the file to call
+                    success: function (data) {
+                        $('.order').addClass('disabled');
+                        $('.message').html("به شما از طرف فروشنده زنگ زده خواهد شد. کد سفارش شما " + data['code'] + " میباشد");
+                        var delay = 3000; //Your delay in milliseconds
+                        setTimeout(function () {
+                            window.location = '{% url 'user:profile_customer' request.user.member.id %}';
+                        }, delay);
+                    }
+                });
+                return false;
+            });
+        });
+    </script>
 {% endblock %}

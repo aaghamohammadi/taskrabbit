@@ -10,7 +10,7 @@
         <div class="card-action">
             <a href="{% url 'service:show_skill' skill.tasker.id skill.id %}">نمایش مهارت</a>
             {% ifnotequal request.user.member skill.tasker %}
-                <a href="">استخدام</a>
+                <a href="{% url 'service:show_factor' skill.id %}">استخدام</a>
             {% endifnotequal %}
         </div>
         <div class="card-reveal">
@@ -31,7 +31,7 @@
         <div class="card-action">
             <a href="{% url 'service:show_skill' skill.tasker.id skill.id %}">نمایش مهارت</a>
             {% ifnotequal request.user.member skill.tasker %}
-                <a href="">استخدام</a>
+                <a href="{% url 'service:show_factor' skill.id %}">استخدام</a>
             {% endifnotequal %}
         </div>
     </div>

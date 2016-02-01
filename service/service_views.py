@@ -4,8 +4,11 @@
 # from service.models import TaskModel, Skill
 #
 #
+import simplejson
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 
@@ -73,7 +76,7 @@ class ShowSkillsView(ListView):
         return Skill.objects.all()
 
 
-class ShowTaskers(ListView):
+class ShowTaskersView(ListView):
     model = Member
     template_name = 'service/show_taskers.html'
     context_object_name = 'taskers'
@@ -84,7 +87,7 @@ class ShowTaskers(ListView):
         return query
 
 
-class ShowOrders(ListView):
+class ShowOrdersView(ListView):
     model = Order
     template_name = 'service/show_orders.html'
     context_object_name = 'orders'
@@ -93,10 +96,22 @@ class ShowOrders(ListView):
         return Order.objects.filter(customer=self.request.user.member)
 
 
-class ShowFactor(ListView):
+class ShowFactorView(ListView):
     model = Skill
     template_name = 'service/show_factor.html'
     context_object_name = 'skill'
 
     def get_queryset(self, **kwargs):
-        return get_object_or_404(Skill, id=kwargs.get('skill_id'))
+        return get_object_or_404(Skill, id=self.kwargs.get('skill_id'))
+
+
+class RecordOrderView(TemplateView):
+    template_name = 'index.html'
+
+    def get(self, request, *args, **kwargs):
+        customer = self.request.user.member
+        skill_id = self.kwargs['skill_id']
+        skill = get_object_or_404(Skill, id=skill_id)
+        order = Order.objects.create(customer=customer, skill=skill)
+        # context = {'message': "با شما تماس گرفته میشود. کد شما" + str(order.code) + "میباشد."}
+        return HttpResponse(simplejson.dumps({'code': order.code}), content_type='application/json')
