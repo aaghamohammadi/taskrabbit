@@ -70,3 +70,11 @@ class Root:
             @staticmethod
             def process_view(request, view_func, view_args, view_kwargs):
                 pass  # hafeze zaife yadam mire :))
+
+    class Manager:
+        @staticmethod
+        def process_view(request, view_func, view_args, view_kwargs):
+            if not request.user.is_authenticated():
+                return HttpResponseForbidden()
+            if not request.user.is_superuser:
+                return HttpResponseForbidden()

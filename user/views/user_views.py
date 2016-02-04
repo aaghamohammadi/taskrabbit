@@ -3,17 +3,15 @@ import datetime
 import random
 
 from django.core.mail import send_mail
-from django.views.generic import TemplateView
 from django.shortcuts import get_object_or_404, render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-
 from django.shortcuts import render
 
 from review.forms import CommentForm, RatingForm
 from service.models import Order, Skill
-from user.forms import TaskerAvailabilityForm, EditCustomerProfileForm
+from user.forms import EditCustomerProfileForm
 from user.forms import CustomerRegForm, LoginForm
 from user.models import Member
 
@@ -147,22 +145,6 @@ def profile_user(request, customer_id):
         return render(request, template_name,
                       {'member': member, 'comment_form': comment_form, 'rating_form': rating_form,
                        'order_set': order_set})
-
-
-class ProfileTakser(TemplateView):
-    template_name = 'profile-tasker.html'
-
-    def get(self, request, *args, **kwargs):
-        availability_form = TaskerAvailabilityForm()
-        return render(request, self.template_name, {'availability_form': availability_form})
-
-
-class Work(TemplateView):
-    template_name = 'work.html'
-
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {})
-
 
 def edit_customer_profile(request):
     template_name = 'edit-customer-profile.html'

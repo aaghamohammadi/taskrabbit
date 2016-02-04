@@ -1,9 +1,3 @@
-# # Create your views here.
-# from django.views.generic.list import ListView
-#
-# from service.models import TaskModel, Skill
-#
-#
 import simplejson
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse

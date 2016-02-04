@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block navbar %}
+
+    <ul class="right hide-on-med-and-down">
+        <li><a href="{% url 'user:logout' %}" class="normal navbar item">خروج</a></li>
+        <li><a href="" class="normal navbar dropdown-button item"
+               data-activates="menu-links-1">نمایش</a>
+            <ul id="menu-links-1" class="dropdown-content">
+                <li><a href="{% url 'manager:show_categories' %}">دسته‌ها</a></li>
+                <li><a href="{% url 'manager:show_users' %}">کاربران</a></li>
+            </ul>
+        </li>
+
+
+        <li><a href="{% url 'manager:index' %}" class="normal navbar item">پنل مدیریت</a></li>
+
+    </ul>
+    <div dir="rtl">{{ message }}</div>
+
+
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
+
+{% endblock %}
+{% block container %}
+
+{% endblock %}

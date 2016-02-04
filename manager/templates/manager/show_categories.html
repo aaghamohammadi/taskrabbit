@@ -1,0 +1,32 @@
+{% extends 'manager/logged_in_manager.html' %}
+
+{% block container %}
+    <div class="container">
+        <div class="row">
+            {% for category in categories %}
+
+
+                <div class="col s12 m4 ">
+                    <div class="card " dir="rtl">
+                        <div class="card-image">
+                            <img src="{{ category.image.url }}">
+                            <span class="card-title red-text">{{ category.name }}</span>
+                        </div>
+                        <div class="card-content">
+                            <p></p>
+                        </div>
+                        <div class="card-action">
+                            <a href="{% url 'service:show_category_skills' category.id %}">نمایش مهارت‌های این دسته</a>
+
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+

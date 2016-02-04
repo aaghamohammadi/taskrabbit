@@ -1,5 +1,4 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
 # from user.models import Customer, Date
@@ -72,22 +71,3 @@ class EditCustomerProfileForm(forms.ModelForm):
             'image': 'عکس'
         }
 
-
-
-
-class TaskerAvailabilityForm(forms.ModelForm):
-    time = forms.ChoiceField(required=False, label='زمان',
-                             widget=forms.RadioSelect(attrs={'id': 'x_time', 'type': 'radio'}),
-                             choices=TIME_CHOICES)
-
-    class Meta:
-        # model = Date
-        fields = ['date', 'time']
-        labels = {
-            'date': 'روز',
-            'time': 'زمان'
-        }
-
-        widgets = {
-            'date': forms.TextInput(attrs={'class': 'datepicker'}),
-        }

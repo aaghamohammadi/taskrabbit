@@ -1,0 +1,26 @@
+{% extends 'manager/logged_in_manager.html' %}
+{% load static %}
+
+{% block container %}
+    <div class="container">
+        <div class="row" dir="rtl">
+            {% for member in members %}
+                <div class="right col s12 m6 l4 post">
+                    <div class="card medium">
+                        <a href="#"></a>
+
+                        <div class="card-image waves-effect waves-block waves-light">
+                            <img src="{{ member.image.url }}">
+                        </div>
+                        <div class="card-content">{{ member.full_name }}<br/>{{ member.city }}</div>
+                        <div class="card-action">
+                            <a href="{% url 'service:tasker_profile' member.id %}">نمایش حساب کارمندی</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+    </div>
+{% endblock %}
