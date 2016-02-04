@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import unicode_literals
-from django.contrib.auth.models import User
 
-
-
+from datetime import datetime
 from django.db import models
 
 
@@ -16,7 +14,24 @@ class CommentSet(models.Model):
         return str(self.id)
 
 
-class Comment(models.Model):
+class DateMixin(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+
+    def elapsed_time(self):
+        time_delta = datetime.now() - self.date
+        seconds = time_delta.seconds
+        if seconds < 60:
+            return "چند لحظه پیش"
+        if seconds < 3600:
+            return str(int(seconds / 60)) + " دقیقه پیش"
+        if time_delta.days<1:
+            return str(int(seconds/3600)) + " ساعت پیش"
+        if time_delta.days<365:
+            return str(int(time_delta.days)) + " روز پیش"
+        return self.date.date
+
+
+class Comment(DateMixin):
     context = models.TextField("متن نظر")
     comment_set = models.ForeignKey('CommentSet', related_name='comments')
     author = models.ForeignKey('user.Member', related_name='comments')
@@ -29,14 +44,14 @@ class Comment(models.Model):
         return self.context
 
 
-class Rating(models.Model):
-    tasker = models.ForeignKey('user.Member')
+class Rate(models.Model):
+    order = models.OneToOneField('service.Order', related_name='rate')
     customer = models.ForeignKey('user.Member', related_name='customer')
-    rating = models.PositiveSmallIntegerField("نمره", default=0)
+    rate = models.PositiveSmallIntegerField("نمره", default=0)
 
     class Meta:
         verbose_name_plural = 'امتیازها'
         verbose_name = 'امتیاز'
 
     def save(self, **kwargs):
-        super(Rating, self).save()
+        super(Rate, self).save()

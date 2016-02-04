@@ -1,0 +1,71 @@
+{% extends 'logged_in_user.html' %}
+{% load service_tags %}
+{% load static %}
+{% load comment_tags %}
+{% block container %}
+    <div class="container" dir="rtl">
+        <div class="row">
+            <div class="right col s12 m6 l4 post">
+                <div class="card medium">
+                    <a href="#"></a>
+
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img src="{{ tasker.image.url }}">
+                    </div>
+                    <div class="card-content">{{ tasker.full_name }}<br/>{{ tasker.city }}</div>
+                </div>
+            </div>
+            <div class="col m6">
+                <ul class="collection" dir="rtl">
+
+                    <li class="collection-item">
+                        <strong>نام کامل:</strong>
+                        {{ tasker.user.username }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>تلفن همراه:</strong>
+                        {{ tasker.mobile_number }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>جنسیت:</strong>
+                        {% if tasker.gender == 'M' %}
+                            مرد
+                        {% else %}
+                            زن
+                        {% endif %}
+                    </li>
+                    <li class="collection-item">
+                        <strong>شهر:</strong>
+                        {{ tasker.city }}
+                    </li>
+                    <li class="collection-item">
+                        <strong>آدرس:</strong>
+                        {{ tasker.address }}
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+        <div class="row">
+            {% for skill in tasker.skills.all %}
+
+
+                <div class="col s12 m6 ">
+
+                    {% show_skill skill 2 %}
+
+                </div>
+
+
+
+            {% endfor %}
+        </div>
+    </div>
+    {% comment_form_show tasker.comment_set %}
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script src="{% static 'js/review/comment.js' %}"></script>
+
+{% endblock %}

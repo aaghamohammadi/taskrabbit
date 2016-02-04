@@ -1,44 +1,7 @@
-{% extends 'layout.html' %}
+{% extends 'logged_in_user.html' %}
 {% load staticfiles %}
 {% block title %}
     حساب کاربری
-{% endblock %}
-
-{% block navbar %}
-    <ul class="right hide-on-med-and-down">
-        {% if not user.is_authenticated %}
-            <li><a href="{% url 'user:registration' %}" class="normal navbar item">ثبت نام</a></li>
-        {% endif %}
-        <li class="active"><a href="{% url 'user:login' %}" class="normal navbar dropdown-button item"
-                              data-activates="menu-links-1">
-            {% if user.is_authenticated %}
-                حساب کاربری
-            {% else %}
-                ورود
-            {% endif %}</a>
-            <ul id="menu-links-1" class="dropdown-content">
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'user:edit-customer-profile' %}">ویرایش حساب کاربری</a></li>
-                    <li class="active"><a href="{% url 'user:profile_customer' user.id %}">حساب کاربری</a></li>
-                    <li><a href="{% url 'service:edit_skill' %}">ثبت مهارت</a></li>
-                    <li><a href="/logout/">خروج</a></li>
-                {% endif %}
-
-
-            </ul>
-        </li>
-        <li><a href="{% url 'user:index' %}" class="normal navbar item">صفحه اصلی</a></li>
-
-    </ul>
-
-
-    <ul id="nav-mobile" class="side-nav">
-        <li class="active"><a href="#">صفحه ی اصلی</a></li>
-        <li><a href="{% url 'user:login' %}">ورود</a></li>
-        <li><a href="{% url 'user:registration' %}">ثبت نام</a></li>
-    </ul>
-    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
-
 {% endblock %}
 
 {% block container %}
@@ -88,7 +51,8 @@
                                 <th>نام خدمت</th>
                                 <th>دسته بندی</th>
                                 <th>وضعیت</th>
-                                <th>ثبت نظر</th>
+                                <th>گزارش تکمیل</th>
+                                <th>امتیاز</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -98,69 +62,80 @@
 
                                 <tr>
                                     <td>{{ order.skill.tasker }}</td>
-                                    <td>{{ order.id }}</td>
-                                    <td>{{ order.skill }}</td>
-                                    <td>{{ order.skill.category }}</td>
-                                    <td>انجام‌شده</td>
-
-                                    <td><h4><a href="#modal1" class="modal-trigger large teal-text lighten-4"><i
-                                            class="icon-blog"></i></a>
-                                    </h4>
-
+                                    <td>{{ order.code }}</td>
+                                    <td>
+                                        <a href="{% url 'service:show_skill' order.skill.tasker.id order.skill.id %}">{{ order.skill.title }}</a>
                                     </td>
+                                    <td>{{ order.skill.category }}</td>
+                                    <td>{{ order.get_status_display }}</td>
+
+                                    <td>
+                                        <h4>
+                                            {% if not order.rate %}
+                                                <a href="#modal{{ forloop.counter0 }}"
+                                                   class="modal-trigger large teal-text lighten-4"><i
+                                                        class="icon-blog"></i></a>
+                                            {% endif %}
+                                        </h4>
+                                    </td>
+                                    <td>{{ order.rate.rate }}</td>
                                 </tr>
+                                <div id="modal{{ forloop.counter0 }}" class="modal">
+                                    <div class="modal-content">
+                                        <div class="row">
+                                            <div>لطفا برای بهبود عملکرد سایت در تشخیص کارمندان ضعیف به این عملکرد امتیاز
+                                                داده و در صورت تمایل نظر دهید.
+                                            </div>
+                                            <form class="col s10 row comment_form"
+                                                  action="{% url 'review:create_comment' %}" method="POST" dir="rtl"
+                                                  style="margin: auto; float: none">
+                                                {% csrf_token %}
+                                                <input id="id_comment_set" name="comment_set" type="hidden"
+                                                       value="{{ order.skill.comment_set }}"/>
+
+                                                <div class="input-field  col s4" dir="rtl" style="float:none;">
+                                                    {{ comment_form.title }}
+                                                    {{ comment_form.title.label_tag }}
+                                                    {{ comment_form.title.errors }}
+
+                                                </div>
+                                                <div class="input-field  col s9" style="float: none">
+                                                    {{ comment_form.context }}
+                                                    {{ comment_form.context.label_tag }}
+                                                    {{ comment_form.context.errors }}
+
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="row">
+                                            <form class="col s10 row rate_form" action="{% url 'review:create_rate' %}"
+                                                  method="POST" dir="rtl"
+                                                  style="margin: auto; float: none">
+                                                {% csrf_token %}
+                                                {{ rating_form.order }}
+                                                <input id="id_order" name="order" type="hidden"
+                                                       value="{{ order.id }}"/>
+                                                <p class="range-field col s12 m3" style="float: right">
+                                                    {{ rating_form.rate.label_tag }}
+                                                    {{ rating_form.rate }}
+                                                </p>
+                                            </form>
+                                            <div class="col s12">
+                                                <button name="member-rating-btn"
+                                                        class="btn waves-effect waves-light row confirm_button">
+                                                    تایید اتمام کار
+                                                    <i class="icon-clipboard"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                             {% endfor %}
                             </tbody>
                         </table>
                         <!-- Modal Structure -->
                         <!-- Modal Structure -->
-                        <div id="modal1" class="modal">
-                            <div class="modal-content">
-                                <div class="row">
-                                    <form class="col s10 row" method="POST" dir="rtl" style="margin: auto; float: none">
-                                        {% csrf_token %}
-                                        <div class="input-field  col s4" dir="rtl" style="float:none;">
-                                            {{ comment_form.title }}
-                                            {{ comment_form.title.label_tag }}
-                                            {{ comment_form.title.errors }}
-
-                                        </div>
-                                        <div class="input-field  col s9" style="float: none">
-                                            {{ comment_form.context }}
-                                            {{ comment_form.context.label_tag }}
-                                            {{ comment_form.context.errors }}
-
-                                        </div>
-                                        <div class="col s12">
-                                            <button name="member-comment-btn" class="btn waves-effect waves-light row"
-                                                    type="submit">ثبت نظر
-                                                <i class="icon-pencil"></i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="row">
-                                    <form class="col s10 row" method="POST" dir="rtl" style="margin: auto; float: none">
-                                        {% csrf_token %}
-                                        {% for field in rating_form %}
-                                            {#            <div class="col s12 m6"></div>#}
-                                            <p class="range-field col s12 m3" style="float: right">
-                                                {{ field.label_tag }}
-                                                {{ field }}
-                                            </p>
-
-                                        {% endfor %}
-                                        <div class="col s12">
-                                            <button name="member-rating-btn" class="btn waves-effect waves-light row"
-                                                    type="submit">درج رتبه
-                                                <i class="icon-clipboard"></i>
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
 
                     </li>
                 </ul>
@@ -169,4 +144,18 @@
         </div>
     </div>
 
+{% endblock %}
+{% block script %}
+    {{ block.super }}
+    <script src="{% static 'js/review/comment.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.confirm_button').click(function () {
+{#                console.log($(this).closest('.modal').find('form').html("sss"));#}
+
+                $(this).closest('.modal').find('.comment_form').submit();
+                $(this).closest('.modal').find('.rate_form').submit();
+            });
+        });
+    </script>
 {% endblock %}

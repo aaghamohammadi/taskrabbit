@@ -59,7 +59,7 @@ class Root:
         def process_view(request, view_func, view_args, view_kwargs):
             if not request.user.is_authenticated():
                 return HttpResponseForbidden()
-            tasker_id = view_kwargs.pop('tasker_id', '')
+            tasker_id = view_kwargs.get('tasker_id', '')
             if tasker_id:
                 tasker = Member.objects.get(id=tasker_id)
             else:

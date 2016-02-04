@@ -1,5 +1,5 @@
 from django import forms
-from review.models import Comment, Rating
+from review.models import Comment, Rate
 
 
 class CommentForm(forms.ModelForm):
@@ -14,8 +14,9 @@ class CommentForm(forms.ModelForm):
 
 class RatingForm(forms.ModelForm):
     class Meta:
-        model = Rating
-        exclude = ['customer', 'tasker']
+        model = Rate
+        exclude = ['customer']
         widgets = {
-            'rating': forms.TextInput(attrs={'type': 'range', 'min': '0', 'max': '10'}),
+            'rate': forms.TextInput(attrs={'type': 'range', 'min': '0', 'max': '10'}),
+            'order': forms.HiddenInput()
         }

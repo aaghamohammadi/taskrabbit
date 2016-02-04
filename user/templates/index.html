@@ -1,4 +1,5 @@
-{% extends 'layout.html' %}
+{% extends user.is_authenticated|yesno:"logged_in_user.html,guest_user.html" %}
+{#{% extends 'logged_in_user.html' %}#}
 {% load staticfiles %}
 {% load static %}
 {% block title %}
@@ -8,44 +9,44 @@
 {% block static_css %}
 
 {% endblock %}
-
-{% block navbar %}
-    <ul class="right hide-on-med-and-down">
-        {% if not user.is_authenticated %}
-            <li><a href="{% url 'user:registration' %}" class="normal navbar item">ثبت نام</a></li>
-        {% endif %}
-
-        <li><a href="{% url 'user:login' %}" class="normal navbar dropdown-button item"
-               data-activates="menu-links-1">
-            {% if user.is_authenticated %}
-                حساب کاربری
-            {% else %}
-                ورود
-            {% endif %}</a>
-            <ul id="menu-links-1" class="dropdown-content">
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'user:edit-customer-profile' %}">ویرایش حساب کاربری</a></li>
-                    <li><a href="{% url 'user:profile_customer' user.id %}">حساب کاربری</a></li>
-                    <li><a href="{% url 'service:edit_skill' %}">ثبت مهارت</a></li>
-                    <li><a href="/logout/">خروج</a></li>
-                {% endif %}
-
-
-            </ul>
-        </li>
-        <li class="active"><a href="#" class="normal navbar item">صفحه اصلی</a></li>
-
-    </ul>
-
-
-    <ul id="nav-mobile" class="side-nav">
-        <li class="active"><a href="#">صفحه ی اصلی</a></li>
-        <li><a href="{% url 'user:login' %}">ورود</a></li>
-        <li><a href="{% url 'user:registration' %}">ثبت نام</a></li>
-    </ul>
-    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
-
-{% endblock %}
+{##}
+{#{% block navbar %}#}
+{#    <ul class="right hide-on-med-and-down">#}
+{#        {% if not user.is_authenticated %}#}
+{#            <li><a href="{% url 'user:registration' %}" class="normal navbar item">ثبت نام</a></li>#}
+{#        {% endif %}#}
+{##}
+{#        <li><a href="{% url 'user:login' %}" class="normal navbar dropdown-button item"#}
+{#               data-activates="menu-links-1">#}
+{#            {% if user.is_authenticated %}#}
+{#                حساب کاربری#}
+{#            {% else %}#}
+{#                ورود#}
+{#            {% endif %}</a>#}
+{#            <ul id="menu-links-1" class="dropdown-content">#}
+{#                {% if user.is_authenticated %}#}
+{#                    <li><a href="{% url 'user:edit-customer-profile' %}">ویرایش حساب کاربری</a></li>#}
+{#                    <li><a href="{% url 'user:profile_customer' user.id %}">حساب کاربری</a></li>#}
+{#                    <li><a href="{% url 'service:edit_skill' %}">ثبت مهارت</a></li>#}
+{#                    <li><a href="/logout/">خروج</a></li>#}
+{#                {% endif %}#}
+{##}
+{##}
+{#            </ul>#}
+{#        </li>#}
+{#        <li class="active"><a href="#" class="normal navbar item">صفحه اصلی</a></li>#}
+{##}
+{#    </ul>#}
+{##}
+{##}
+{#    <ul id="nav-mobile" class="side-nav">#}
+{#        <li class="active"><a href="#">صفحه ی اصلی</a></li>#}
+{#        <li><a href="{% url 'user:login' %}">ورود</a></li>#}
+{#        <li><a href="{% url 'user:registration' %}">ثبت نام</a></li>#}
+{#    </ul>#}
+{#    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>#}
+{##}
+{#{% endblock %}#}
 
 {% block container %}
     <div id="index-banner" class="parallax-container">
@@ -110,7 +111,7 @@
                             <a href="#"></a>
 
                             <div class="card-image waves-effect waves-block waves-light">
-                                <img src="{{ member.image }}">
+                                <img src="{{ member.image.url }}">
                             </div>
                             <div class="card-content">{{ member.full_name }}<br/>{{ member.city }}</div>
 

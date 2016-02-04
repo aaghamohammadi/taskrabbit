@@ -1,0 +1,44 @@
+{% extends 'logged_in_user.html' %}
+{% block container %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <ul class="collection" dir="rtl">
+                    <li class="collection-item">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>مشتری</th>
+                                <th>نام خدمت</th>
+                                <th>دسته</th>
+                                <th>کد سفارش</th>
+                                <th>تاریخ</th>
+                                <th>قیمت</th>
+                                <th>وضعیت</th>
+                            </tr>
+                            </thead>
+                            {% for order in orders %}
+
+                                <tbody>
+                                <tr>
+                                    <td>{{ order.customer.full_name }}</td>
+                                    <td>{{ order.skill.title }}</td>
+                                    <td>{{ order.skill.category }}</td>
+                                    <td>{{ order.code }}</td>
+                                    <td>{{ order.order_time }}</td>
+                                    <td>{{ order.skill.price }}</td>
+                                    <td>{{ order.get_status_display }}</td>
+
+                                </tr>
+                                </tbody>
+                            {% endfor %}
+
+                        </table>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
