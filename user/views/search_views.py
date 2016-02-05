@@ -17,7 +17,6 @@ class Search(FormView):
         max_price = data['max_price']
         min_rate = data['min_rate']
         context = self.get_context_data()
-        print(max_price)
         skills = Skill.objects.filter(price__lte=max_price).filter(rate__gte=min_rate).filter(
                 title__contains=skill_name).filter(tasker__city__contains=city).filter(
             tasker__address__contains=location)

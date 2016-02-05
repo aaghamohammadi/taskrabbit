@@ -35,7 +35,6 @@ def index(request):
         count = 0
     best_taskers = Member.objects.exclude(skills__isnull=True).order_by('rate')[:3]
     best_members = Member.objects.annotate(orders_num=Count('orders')).order_by('-orders_num')[:3]
-    print(best_members[1].orders_num)
     return render(request, 'index.html', {'visits': count, 'best_members': best_members, 'best_taskers': best_taskers})
 
 
