@@ -1,7 +1,9 @@
+from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.http import HttpResponse
 from django.shortcuts import redirect
 
-from django.views.generic import FormView, ListView
+from django.views.generic import FormView, ListView, TemplateView
 
 from manager.forms.category_form import CreateCategoryForm
 from service.models import Category
@@ -15,7 +17,7 @@ class CreateCategoryView(FormView):
     def form_valid(self, form):
         form.save()
 
-        return redirect(reverse('manager:show_categories.html'))
+        return redirect(reverse('manager:show_categories'))
 
 
 class ShowCategoriesView(ListView):
@@ -34,3 +36,13 @@ class ShowUsersView(ListView):
 
     def get_queryset(self):
         return Member.objects.all()
+
+
+class DeleteUserView(TemplateView):
+    template_name = 'manager/index.html'
+
+    def get(self, request, *args, **kwargs):
+        user_id = self.kwargs['member_id']
+        member = Member.objects.get(id=user_id)
+        member.user.delete()
+        return HttpResponse('')

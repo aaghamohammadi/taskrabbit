@@ -1,40 +1,62 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% block navbar %}
+    {% if not user.is_superuser %}
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'user:logout' %}" class="normal navbar item">خروج</a></li>
+            <li><a href="" class="normal navbar dropdown-button item"
+                   data-activates="menu-links-1">نمایش</a>
+                <ul id="menu-links-1" class="dropdown-content">
+                    <li><a href="{% url 'service:show_categories' %}">دسته‌ها</a></li>
+                    <li><a href="{% url 'service:show_taskers' %}">کارمند‌ها</a></li>
+                    <li><a href="{% url 'service:show_skills' %}">مهارت‌ها</a></li>
 
-    <ul class="right hide-on-med-and-down">
-        <li><a href="{% url 'user:logout' %}" class="normal navbar item">خروج</a></li>
-        <li><a href="" class="normal navbar dropdown-button item"
-               data-activates="menu-links-1">نمایش</a>
-            <ul id="menu-links-1" class="dropdown-content">
-                <li><a href="{% url 'service:show_categories' %}">دسته‌ها</a></li>
-                <li><a href="{% url 'service:show_taskers' %}">کارمند‌ها</a></li>
-                <li><a href="{% url 'service:show_skills' %}">مهارت‌ها</a></li>
-
-            </ul>
-        </li>
-        <li><a href="" class="normal navbar dropdown-button item"
-               data-activates="menu-links-2">حساب کاربری</a>
-            <ul id="menu-links-2" class="dropdown-content">
-                <li><a href="{% url 'user:edit-customer-profile' %}">ویرایش</a></li>
-                <li><a href="{% url 'user:profile_customer' user.id %}">نمایش</a></li>
-            </ul>
-        </li>
-
-
-        <li><a href="{% url 'user:index' %}" class="normal navbar item">صفحه اصلی</a></li>
-
-    </ul>
-    <ul class="left hide-on-med-and-down">
-        <li><a href="{% url 'service:edit_skill' %}" class="normal navbar  item"
-               data-activates="menu-links-1">ثبت مهارت</a></li>
-        <li><a href="{% url 'service:show_customers_orders' %}" class="normal navbar item">سفارشات</a></li>
-        <li><a href="{% url 'service:show_my_skills' %}" class="normal navbar item">مهارت‌های من</a></li>
-    </ul>
-    <div dir="rtl">{{ message }}</div>
+                </ul>
+            </li>
+            <li><a href="" class="normal navbar dropdown-button item"
+                   data-activates="menu-links-2">حساب کاربری</a>
+                <ul id="menu-links-2" class="dropdown-content">
+                    <li><a href="{% url 'user:edit-customer-profile' %}">ویرایش</a></li>
+                    <li><a href="{% url 'user:profile_customer' user.id %}">نمایش</a></li>
+                </ul>
+            </li>
 
 
-    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
+            <li><a href="{% url 'user:index' %}" class="normal navbar item">صفحه اصلی</a></li>
+
+        </ul>
+        <ul class="left hide-on-med-and-down">
+            <li><a href="{% url 'service:edit_skill' %}" class="normal navbar  item"
+                   data-activates="menu-links-1">ثبت مهارت</a></li>
+            <li><a href="{% url 'service:show_customers_orders' %}" class="normal navbar item">سفارشات</a></li>
+            <li><a href="{% url 'service:show_my_skills' %}" class="normal navbar item">مهارت‌های من</a></li>
+        </ul>
+        <div dir="rtl">{{ message }}</div>
+
+
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
+    {% else %}
+
+        <ul class="right hide-on-med-and-down">
+            <li><a href="{% url 'user:logout' %}" class="normal navbar item">خروج</a></li>
+            <li><a href="" class="normal navbar dropdown-button item"
+                   data-activates="menu-links-1">نمایش</a>
+                <ul id="menu-links-1" class="dropdown-content">
+                    <li><a href="{% url 'manager:show_categories' %}">دسته‌ها</a></li>
+                    <li><a href="{% url 'manager:show_users' %}">کاربران</a></li>
+                </ul>
+            </li>
+
+
+            <li><a href="{% url 'manager:index' %}" class="normal navbar item">پنل مدیریت</a></li>
+
+        </ul>
+        <div dir="rtl">{{ message }}</div>
+
+
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="icon-list2"></i></a>
+    {% endif %}
+
 
 {% endblock %}
 {% block container %}
