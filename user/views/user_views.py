@@ -1,18 +1,19 @@
-import hashlib
 import datetime
+import hashlib
 import random
 
-from django.core.mail import send_mail
-from django.shortcuts import get_object_or_404, render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
+from django.db.models.aggregates import Count
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404, render_to_response
 from django.shortcuts import render
 
 from review.forms import CommentForm, RatingForm
-from service.models import Order, Skill
-from user.forms import EditCustomerProfileForm
+from service.models import Order
 from user.forms import CustomerRegForm, LoginForm
+from user.forms import EditCustomerProfileForm
 from user.models import Member
 
 
@@ -32,10 +33,10 @@ def index(request):
         count = request.session.get('visits')
     else:
         count = 0
-    members = Member.objects.all()
-
-    skills = Skill.objects.all()
-    return render(request, 'index.html', {'visits': count, 'members': members, 'skills': skills})
+    best_taskers = Member.objects.exclude(skills__isnull=True).order_by('rate')[:3]
+    best_members = Member.objects.annotate(orders_num=Count('orders')).order_by('-orders_num')[:3]
+    print(best_members[1].orders_num)
+    return render(request, 'index.html', {'visits': count, 'best_members': best_members, 'best_taskers': best_taskers})
 
 
 def registration(request):

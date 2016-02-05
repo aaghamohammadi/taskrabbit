@@ -105,7 +105,7 @@
             </div>
             <div class="row" dir="rtl">
                 <h3>پرکارترین کارفرمایان</h3><br/><br/>
-                {% for member in members %}
+                {% for member in best_members %}
                     <div class="right col s12 m6 l4 post">
                         <div class="card">
                             <a href="#"></a>
@@ -121,19 +121,19 @@
             </div>
             <div class="row" dir="rtl">
                 <h3>برترین کارمندان</h3><br/><br/>
-                {% for skill in skills %}
+                {% for tasker in best_taskers %}
                     <div class="right col s12 m6 l4 post">
                         <div class="card">
                             <a href="#"></a>
 
                             <div class="card-image waves-effect waves-block waves-light">
-                                <img src="{{ skill.tasker.image }}">
+                                <img src="{{ tasker.image }}">
                             </div>
-                            <div class="card-content">{{ skill.tasker.full_name }}<br/>{{ skill.tasker.city }}<br/>
+                            <div class="card-content">{{ tasker.full_name }}<br/>{{ tasker.city }}<br/>
                             </div>
                             <div class="card-action">
                                 <h5>
-                                    <a href="#" class="teal-text">{{ skill.title }}</a>
+                                    <a href="#" class="teal-text"></a>
 
                                 </h5>
                             </div>
