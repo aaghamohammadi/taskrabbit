@@ -19,9 +19,9 @@ TIME_CHOICES = (
 
 class CustomerRegForm(forms.ModelForm):
     member_email = forms.EmailField(required=True, label='پست الکترونیک', widget=forms.TextInput(
-        attrs={'class': 'required'}))
+            attrs={'class': 'required'}))
     member_password = forms.CharField(required=True, label='کلمه عبور', widget=forms.PasswordInput(
-        attrs={'class': 'required'}))
+            attrs={'class': 'required'}))
     gender = forms.ChoiceField(required=False, label='جنسیت',
                                widget=forms.RadioSelect(attrs={'id': 'gender', 'type': 'radio'}),
                                choices=GENDER_CHOICES)
@@ -54,9 +54,9 @@ class CustomerRegForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     username = forms.CharField(required=True, label='نام کامل', widget=forms.TextInput(
-        attrs={'placeholder': 'نام کامل', 'class': 'required'}))
+            attrs={'placeholder': 'نام کامل', 'class': 'required'}))
     password = forms.CharField(required=True, label='رمز عبور', widget=forms.PasswordInput(
-        attrs={'placeholder': 'کلمه عبور', 'class': 'required'}))
+            attrs={'placeholder': 'کلمه عبور', 'class': 'required'}))
 
 
 class EditCustomerProfileForm(forms.ModelForm):
@@ -71,3 +71,22 @@ class EditCustomerProfileForm(forms.ModelForm):
             'image': 'عکس'
         }
 
+
+class SearchForm(forms.Form):
+    skill_name = forms.CharField(max_length=50, required=False, label='نام مهارت')
+    city = forms.CharField(max_length=50, required=False, label='شهر')
+    location = forms.CharField(max_length=50, required=False, label='آدرس')
+    max_price = forms.IntegerField(required=False, label='حداکثر قیمت')
+    min_rate = forms.IntegerField(required=False, label='حداقل امتیاز')
+
+    def clean_max_price(self):
+        if not self.cleaned_data['max_price']:
+            return (1 << 31) - 1
+        else:
+            return self.cleaned_data['max_price']
+
+    def clean_min_rate(self):
+        if not self.cleaned_data['min_rate']:
+            return 0
+        else:
+            return self.cleaned_data['min_rate']

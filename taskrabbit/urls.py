@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 from taskrabbit import settings
+from user.views.search_views import Search
 
 urlpatterns = \
     [
@@ -26,6 +27,7 @@ urlpatterns = \
         url(r'^service/', include('service.urls', namespace='service')),
 
         url(r'^', include('user.urls', namespace='user')),
-        url(r'^review/', include('review.urls', namespace='review'))
+        url(r'^review/', include('review.urls', namespace='review')),
+        url(r'^search/', Search.as_view(), name='search')
 
     ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
