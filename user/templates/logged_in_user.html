@@ -29,6 +29,8 @@
         <ul class="left hide-on-med-and-down">
             <li><a href="{% url 'service:edit_skill' %}" class="normal navbar  item"
                    data-activates="menu-links-1">ثبت مهارت</a></li>
+            <li><a href="{% url 'service:tasker_profile' request.user.member.id %}"
+                   class="normal navbar item">حساب کارمندی</a></li>
             <li><a href="{% url 'service:show_customers_orders' %}" class="normal navbar item">سفارشات</a></li>
             <li><a href="{% url 'service:show_my_skills' %}" class="normal navbar item">مهارت‌های من</a></li>
         </ul>

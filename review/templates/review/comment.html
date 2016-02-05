@@ -42,7 +42,7 @@
                 {% ifequal comment.author request.user.member %}
                     شما
                     {{ comment.elapsed_time }}
-                    گفته که:
+                    گفتید که:
                 {% else %}
                     {{ comment.author.full_name }}
                     {{ comment.elapsed_time }}
