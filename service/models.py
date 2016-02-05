@@ -13,14 +13,15 @@ class Skill(models.Model):
     price = models.IntegerField()
     image = models.ImageField(upload_to='skill_images')
     tasker = models.ForeignKey('user.Member', related_name='skills')
-
+    rate = models.FloatField(default=0)
     comment_set = models.OneToOneField('review.CommentSet', related_name='skill')
 
     def get_score(self):
         orders = self.orders.all()
         scores = 0
         for order in orders:
-            scores += order.rate.rate
+            if order.status == 'D':
+                scores += order.rate.rate
         return scores, orders.count()
 
     def __str__(self):

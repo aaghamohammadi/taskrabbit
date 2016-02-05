@@ -15,6 +15,8 @@
             <a class="left">{{ skill.price }} تومان</a>
             <a class="left" href="{% url 'service:tasker_profile' skill.tasker.id %}">کاری
                 از {{ skill.tasker.user.username }}</a>
+            <a class="left" href="">{{ skill.rate }}</a>
+
         </div>
         <div class="card-reveal">
                             <span class="card-title grey-text ">{{ skill.title }}<i
@@ -39,6 +41,7 @@
             <a class="left">{{ skill.price }} تومان</a>
             <a class="left" href="{% url 'service:tasker_profile' skill.tasker.id %}">کاری از
                 {{ skill.tasker.user.username }}</a>
+            <a class="left" href="">{{ skill.rate }}</a>
         </div>
     </div>
 {% endifequal %}
