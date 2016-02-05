@@ -16,6 +16,13 @@ class Skill(models.Model):
 
     comment_set = models.OneToOneField('review.CommentSet', related_name='skill')
 
+    def get_score(self):
+        orders = self.orders.all()
+        scores = 0
+        for order in orders:
+            scores += order.rate.rate
+        return scores, orders.count()
+
     def __str__(self):
         return str(self.title) + " " + str(self.category)
 

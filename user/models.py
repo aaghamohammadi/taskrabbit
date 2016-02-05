@@ -3,7 +3,6 @@ import datetime
 
 from django.contrib.auth.models import User
 from django.db import models
-from django.db.models import Sum
 
 from review.models import CommentSet
 
@@ -33,7 +32,7 @@ class Member(models.Model):
     credit = models.IntegerField(default=0)
 
     def get_score(self):
-        return self.rating_set.aggregate(Sum('rating'))
+        return self.orders.count()
 
     class Meta:
         verbose_name_plural = 'کاربران نوع مشتری'

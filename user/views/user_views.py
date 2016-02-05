@@ -33,6 +33,7 @@ def index(request):
     else:
         count = 0
     members = Member.objects.all()
+
     skills = Skill.objects.all()
     return render(request, 'index.html', {'visits': count, 'members': members, 'skills': skills})
 
@@ -145,6 +146,7 @@ def profile_user(request, customer_id):
         return render(request, template_name,
                       {'member': member, 'comment_form': comment_form, 'rating_form': rating_form,
                        'order_set': order_set})
+
 
 def edit_customer_profile(request):
     template_name = 'edit-customer-profile.html'
