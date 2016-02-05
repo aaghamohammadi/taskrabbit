@@ -15,6 +15,7 @@
                         <div class="card-content">{{ tasker.full_name }}<br/>{{ tasker.city }}</div>
                         <div class="card-action">
                             <a href="{% url 'service:tasker_profile' tasker.id %}">نمایش حساب کارمندی</a>
+                            <a>امتیاز: {{ tasker.rate }}</a>
                         </div>
                     </div>
                 </div>

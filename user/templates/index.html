@@ -92,15 +92,15 @@
                     </div>
                 </div>
 
-{#                <div class="col s12 m4">#}
-{#                    <div class="search" dir="rtl">#}
-{#                        <div class="search-wrapper card">#}
-{#                            <input id="search" placeholder="جست و جو مهارت ...">#}
-{#                            <i class="icon-search"></i>#}
-{#                        </div>#}
-{#                    </div>#}
-{##}
-{#                </div>#}
+                {#                <div class="col s12 m4">#}
+                {#                    <div class="search" dir="rtl">#}
+                {#                        <div class="search-wrapper card">#}
+                {#                            <input id="search" placeholder="جست و جو مهارت ...">#}
+                {#                            <i class="icon-search"></i>#}
+                {#                        </div>#}
+                {#                    </div>#}
+                {##}
+                {#                </div>#}
 
             </div>
             <div class="row" dir="rtl">
@@ -114,7 +114,9 @@
                                 <img src="{{ member.image.url }}">
                             </div>
                             <div class="card-content">{{ member.full_name }}<br/>{{ member.city }}</div>
-
+                            <div class="card-action">
+                                <a href="#" class="teal-text">تعداد سفارشات: {{ member.orders.count }}</a>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
@@ -122,7 +124,7 @@
             <div class="row" dir="rtl">
                 <h3>برترین کارمندان</h3><br/><br/>
                 {% for tasker in best_taskers %}
-                    <div class="right col s12 m6 l4 post">
+                    <div class="right col s12 m6 l4 post" dir="rtl">
                         <div class="card">
                             <a href="#"></a>
 
@@ -132,10 +134,7 @@
                             <div class="card-content">{{ tasker.full_name }}<br/>{{ tasker.city }}<br/>
                             </div>
                             <div class="card-action">
-                                <h5>
-                                    <a href="#" class="teal-text"></a>
-
-                                </h5>
+                                <a href="#" class="teal-text">امتیاز: {{ tasker.rate }}</a>
                             </div>
 
 

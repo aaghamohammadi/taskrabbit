@@ -12,6 +12,9 @@
                     <div class="card-image waves-effect waves-block waves-light">
                         <img src="{{ tasker.image.url }}">
                     </div>
+                    <div class="card-action">
+                        <a>امتیاز: {{ tasker.rate }}</a>
+                    </div>
                     <div class="card-content">{{ tasker.full_name }}<br/>{{ tasker.city }}</div>
                     {% if user.is_superuser %}
                         <div class="card-action">
