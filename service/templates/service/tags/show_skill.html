@@ -4,23 +4,25 @@
             <img class="activator" src="{{ skill.image.url }}">
         </div>
         <div class="card-content">
-                            <span class="card-title activator blue-text">{{ skill.title }}<i
-                                    class="material-icons right icon-point-up grey-text text-darken-4"></i></span>
+            <span class="card-title activator blue-text"><a
+                    href="{% url 'service:show_skill' skill.tasker.id skill.id %}">{{ skill.title }}</a><i
+                    class="material-icons right icon-point-up grey-text text-darken-4"></i></span>
+
         </div>
         <div class="card-action">
-            <a href="{% url 'service:show_skill' skill.tasker.id skill.id %}">نمایش مهارت</a>
             {% ifnotequal request.user.member skill.tasker %}
-                <a href="{% url 'service:show_factor' skill.id %}">استخدام</a>
+                <a class="right" href="{% url 'service:show_factor' skill.id %}">استخدام</a>
             {% endifnotequal %}
-            <a class="left">{{ skill.price }} تومان</a>
-            <a class="left" href="{% url 'service:tasker_profile' skill.tasker.id %}">کاری
+            <a class="right">{{ skill.price }} تومان</a>
+            <a class="right" href="{% url 'service:tasker_profile' skill.tasker.id %}">کاری
                 از {{ skill.tasker.user.username }}</a>
-            <a class="left" href="">امتیاز: {{ skill.rate }}</a>
+            <a class="right">امتیاز: {{ skill.rate }}</a>
 
         </div>
         <div class="card-reveal">
-                            <span class="card-title grey-text ">{{ skill.title }}<i
-                                    class="material-icons right icon-point-down"></i></span>
+            <span class="card-title grey-text "><a
+                    href="{% url 'service:show_skill' skill.tasker.id skill.id %}">{{ skill.title }}</a><i
+                    class="material-icons right icon-point-down"></i></span>
             <p>{{ skill.description }}</p>
         </div>
     </div>
@@ -28,20 +30,21 @@
     <div class="card large" dir="rtl">
         <div class="card-image">
             <img src="{{ skill.image.url }}">
-            <span class="card-title red-text">{{ skill.title }}</span>
+            <span class="card-title red-text"><a
+                    href="{% url 'service:show_skill' skill.tasker.id skill.id %}">{{ skill.title }}</a></span><br/>
+
         </div>
         <div class="card-content">
             <p>{{ skill.description }}</p>
         </div>
         <div class="card-action">
-            <a href="{% url 'service:show_skill' skill.tasker.id skill.id %}">نمایش مهارت</a>
             {% ifnotequal request.user.member skill.tasker %}
-                <a href="{% url 'service:show_factor' skill.id %}">استخدام</a>
+                <a class="right" href="{% url 'service:show_factor' skill.id %}">استخدام</a>
             {% endifnotequal %}
-            <a class="left">{{ skill.price }} تومان</a>
-            <a class="left" href="{% url 'service:tasker_profile' skill.tasker.id %}">کاری از
+            <a class="right">{{ skill.price }} تومان</a>
+            <a class="right" href="{% url 'service:tasker_profile' skill.tasker.id %}">کاری از
                 {{ skill.tasker.user.username }}</a>
-            <a class="left" href="">امتیاز: {{ skill.rate }}</a>
+            <a class="right" dir="rtl">امتیاز: {{ skill.rate }}</a>
         </div>
     </div>
 {% endifequal %}
