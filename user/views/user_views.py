@@ -11,7 +11,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.shortcuts import render
 
 from review.forms import CommentForm, RatingForm
-from service.models import Order
+from service.models import Order, Skill
 from user.forms import CustomerRegForm, LoginForm
 from user.forms import EditCustomerProfileForm
 from user.models import Member
@@ -33,9 +33,13 @@ def index(request):
         count = request.session.get('visits')
     else:
         count = 0
-    best_taskers = Member.objects.exclude(skills__isnull=True).order_by('rate')[:3]
+    members = Member.objects.all()
+    skills = Skill.objects.all()
+    best_taskers = Member.objects.exclude(skills__isnull=True).order_by('-rate')[:3]
     best_members = Member.objects.annotate(orders_num=Count('orders')).order_by('-orders_num')[:3]
-    return render(request, 'index.html', {'visits': count, 'best_members': best_members, 'best_taskers': best_taskers})
+    return render(request, 'index.html',
+                  {'visits': count, 'best_members': best_members, 'best_taskers': best_taskers, 'members': members,
+                   'skills': skills})
 
 
 def registration(request):

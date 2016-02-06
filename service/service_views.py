@@ -77,7 +77,6 @@ class ShowTaskersView(ListView):
 
     def get_queryset(self):
         query = Member.objects.exclude(skills__isnull=True)
-        print(query)
         return query
 
 
