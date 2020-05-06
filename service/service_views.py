@@ -76,8 +76,7 @@ class ShowTaskersView(ListView):
     context_object_name = 'taskers'
 
     def get_queryset(self):
-        query = Member.objects.exclude(skills__isnull=True)
-        return query
+        return Member.objects.exclude(skills__isnull=True)
 
 
 class ShowCustomersOrders(ListView):

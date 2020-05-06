@@ -29,10 +29,7 @@ def index(request):
         request.session['last_visit'] = str(datetime.datetime.now())
         request.session['visits'] = 1
 
-    if request.session.get('visits'):
-        count = request.session.get('visits')
-    else:
-        count = 0
+    count = request.session.get('visits') if request.session.get('visits') else 0
     members = Member.objects.all()
     skills = Skill.objects.all()
     best_taskers = Member.objects.exclude(skills__isnull=True).order_by('-rate')[:3]
@@ -134,8 +131,6 @@ def register_confirm(request, activation_key):
 
 
 def profile_user(request, customer_id):
-    template_name = 'profile-customer.html'
-
     member = Member.objects.get(user=request.user)
     # print()
     order_set = Order.objects.filter(customer=member)
@@ -147,6 +142,8 @@ def profile_user(request, customer_id):
     else:
         comment_form = CommentForm()
         rating_form = RatingForm()
+        template_name = 'profile-customer.html'
+
         return render(request, template_name,
                       {'member': member, 'comment_form': comment_form, 'rating_form': rating_form,
                        'order_set': order_set})

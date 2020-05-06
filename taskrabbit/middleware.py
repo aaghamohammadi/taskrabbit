@@ -17,11 +17,7 @@ class OnlineNowMiddleware(object):
 
         online = cache.get('online_now')
 
-        if online:
-            online = [ip for ip in online if cache.get(ip)]
-        else:
-            online = []
-
+        online = [ip for ip in online if cache.get(ip)] if online else []
         cache.set(user_ip, user_ip, 600)
 
         if user_ip not in online:
@@ -60,10 +56,7 @@ class Root:
             if not request.user.is_authenticated():
                 return HttpResponseForbidden()
             tasker_id = view_kwargs.get('tasker_id', '')
-            if tasker_id:
-                tasker = Member.objects.get(id=tasker_id)
-            else:
-                tasker = request.user.member
+            tasker = Member.objects.get(id=tasker_id) if tasker_id else request.user.member
             request.tasker = tasker
 
         class EditSkill:
